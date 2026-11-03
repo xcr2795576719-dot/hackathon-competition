@@ -1,32 +1,5 @@
-// 首页占位（队长初始化）；泳道1A 接管后替换为品牌筛选 + 机型卡片
-import Link from "next/link";
-import models from "@/data/models.json";
-
-export default function HomePage() {
-  const list = models as { id: string; name: string; variant: string; brand: string }[];
-  return (
-    <main className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-3xl font-bold tracking-tight">机鉴</h1>
-      <p className="mt-2 text-slate-600">
-        查行情 · 拍照验机 · AI 读评测 —— 一页报告告诉你这台机器买值不值、有没有坑。
-      </p>
-
-      <div className="mt-6 flex gap-3">
-        <Link href="/verify" className="rounded-lg bg-slate-900 px-4 py-2 text-white">拍照验机</Link>
-        <Link href="/prices/iphone-13-128g" className="rounded-lg border border-slate-300 px-4 py-2">看行情</Link>
-      </div>
-
-      <h2 className="mt-10 text-sm font-semibold text-slate-500">机型（{list.length}）</h2>
-      <ul className="mt-3 grid gap-3 sm:grid-cols-2">
-        {list.map((m) => (
-          <li key={m.id}>
-            <Link href={`/prices/${m.id}`} className="block rounded-xl border border-slate-200 bg-white p-4 hover:border-slate-400">
-              <div className="font-medium">{m.name} {m.variant}</div>
-              <div className="mt-1 text-xs text-slate-500">{m.brand}</div>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </main>
-  );
-}
+import Link from 'next/link';
+import {readCatalog, demoModel} from '@/components/prices/data';
+import ModelList from '@/components/prices/ModelList';
+export const dynamic = 'force-dynamic';
+export default async function HomePage(){const models = await readCatalog(); const catalog = models.length ? models : [demoModel]; return <main className="mx-auto max-w-6xl px-5 py-10 sm:py-16"><header className="border-b border-slate-200 pb-10"><p className="text-sm font-bold tracking-widest text-blue-700">机鉴 / 数码决策</p><h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">看清行情，再做决定。</h1><p className="mt-4 max-w-xl leading-7 text-slate-600">新机价格、二手行情与验机报告，让每一次选择都有依据。</p><Link href="/verify" className="mt-6 inline-block rounded-lg bg-slate-900 px-5 py-3 text-sm font-medium text-white">拍照验机 →</Link></header><section className="mt-10"><div className="flex flex-wrap items-baseline justify-between gap-2"><h2 className="text-2xl font-bold">浏览机型</h2><span className="text-sm text-slate-500">{models.length ? `共 ${models.length} 款机型` : '当前展示演示机型'}</span></div>{!models.length && <p className="mt-3 text-sm text-amber-700">机型数据正在录入，下方数据仅供演示。</p>}<ModelList models={catalog}/></section></main>}
