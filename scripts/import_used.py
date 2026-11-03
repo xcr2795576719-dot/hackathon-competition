@@ -29,9 +29,41 @@ import urllib.error
 ROOT = Path(__file__).resolve().parent.parent
 DATA_FILE = ROOT / "data" / "used_samples.json"
 FAILED_FILE = ROOT / "data" / "failed.csv"
+MODELS_FILE = ROOT / "data" / "models.json"
 
 GRADES = ["99新", "95新", "9成新", "8成新", "大修"]
 BATCH = 20
+
+# 人工传参 / 历史 CSV 里常见的 model_id 变体 → data/models.json 的标准 id
+# 统一在此收口，避免样本写进库后因 id 对不上机型目录而"静默失联"
+MODEL_ALIAS = {
+    "huawei-mate60-pro": "mate-60-pro",
+    "huawei-mate-60-pro": "mate-60-pro",
+    "oneplus-ace3": "oneplus-ace-3",
+    "iphone13-128g": "iphone-13-128g",
+    "iphone-14-pro-256": "iphone-14-pro-256g",
+}
+
+
+def resolve_model_id(raw: str) -> str:
+    """把传入的 model_id 归一到机型目录里的标准 id，并给出提示"""
+    mid = (raw or "").strip()
+    if mid in MODEL_ALIAS:
+        fixed = MODEL_ALIAS[mid]
+        print(f"[warn] model_id '{mid}' 非标准，已映射为 '{fixed}'", file=sys.stderr)
+        return fixed
+    try:
+        models = json.loads(MODELS_FILE.read_text(encoding="utf-8"))
+        if isinstance(models, list) and models:
+            ids = {m.get("id") for m in models}
+            if mid not in ids:
+                print(
+                    f"[warn] model_id '{mid}' 不在 data/models.json 的 {len(ids)} 款目录中，样本将无法被 API 命中，请核对拼写",
+                    file=sys.stderr,
+                )
+    except Exception:
+        pass  # models.json 缺失/为空时不做校验
+    return mid
 
 DASHSCOPE_KEY = os.environ.get("DASHSCOPE_KEY", "")
 QWEN_BASE = os.environ.get(
@@ -137,6 +169,7 @@ def main() -> int:
     ap.add_argument("--model", required=True, help="model_id, e.g. iphone-13-128g")
     ap.add_argument("--platform", default="xianyu")
     args = ap.parse_args()
+    model_id = resolve_model_id(args.model)
 
     csv_path = Path(args.csv)
     if not csv_path.exists():
@@ -197,7 +230,7 @@ def main() -> int:
 
             sample = {
                 "platform": r.get("platform") or args.platform,
-                "model_id": args.model,
+                "model_id": model_id,
                 "title": title,
                 "price": int(price),
                 "condition_text": (r.get("condition_text") or "").strip(),

@@ -37,6 +37,8 @@
 
 （570 行原始，13 行因 (title,price) 重复被去重）
 
+> **model_id 已对齐 E 的机型目录**：原始 CSV 里两款的 id 与 `data/models.json` 不一致（`huawei-mate60-pro` → `mate-60-pro`、`oneplus-ace3` → `oneplus-ace-3`），共 **235 条**已重映射。`import_used.py` 增加了 `MODEL_ALIAS` + `resolve_model_id()`，以后传错 id 会自动纠正并告警，不会静默写进库后失联。
+
 ## 四、数据边界（重要，给 E 和队长看）
 
 任务书「目录即边界」原文：
@@ -69,15 +71,30 @@ metrics { current_price, percentile_30d, used_95_median, used_95_ratio_pct, week
 买入判定线与 E 一致：二手95新中位价 ≤ 新机价 **80% → buy**；80%~95% → caution；>95% → avoid。
 `GET` 为纯透传缓存，不校验字段，因此对 E 已生成的 20 份报告**完全兼容**。
 
-## 六、已知问题 / 注意
+## 六、合并验证实测（2026-11-03，E 的数据 + C 的 API）
+
+把 E 分支（`81ee294`）的 `models/knowledge/prices_*` + 20 份报告临时注入，跑 C 的代码，结果全绿：
+
+| 请求 | 结果 |
+|------|------|
+| `GET /api/models` | 200（读到 E 的 20 款目录） |
+| `GET /api/prices/mate-60-pro` | 200，**used.count = 119**，median ¥1490（证明 model_id 重映射生效，235 条不再失联） |
+| `POST /api/estimate`（mate-60-pro / 95新） | 200，low ¥1140 / mid ¥1267 / high ¥1394，basis 4 项 |
+| `GET /api/report/mate-60-pro`（E 生成的缓存） | 200，`verdict=buy`、`verdict_reason` 有值、`pros=3`、`metrics` 存在 —— **C 的 GET 完全兼容 E 的报告格式** |
+| `GET /api/prices/iphone-13-128g` | 200，used.count = 30，median ¥1186 |
+
+结论：**数据层用 E 的、后端用 C 的，能直接跑通**，不需要改 E 的报告或数据。验证后数据已全部还原，分支里不留 E 的文件。
+
+## 七、已知问题 / 注意
 
 1. **Next.js 版本**：任务书写 14.2.35，但其 SWC 原生二进制（`@next/swc-win32-x64-msvc`）在 npm 上不存在（最高仅 14.2.33）。已统一降级到 **14.2.33**（仍属 Next.js 14+，符合技术栈约束）。若他人环境能装 14.2.35 可回滚，但本机装不了。
 2. **import_used.py 鲁棒性**：qwen-plus 对长批次（>10 条）偶尔返回条数不符（如 20 行只给 19 个 grade）。已修复——批次失败自动**降级为逐行判定**，单行仍失败用**本地关键词规则**兜底（`heuristic_grade`），保证入库不中断。570 行全量约 8 分钟。
 3. **二手样本多为"95新"**：卖家描述偏正面，中位价偏中高端。答辩时可说明这是「在售价」而非「成交价」。
 4. **`.env.local` 含 key**：已 gitignore，切勿提交/截图。
 5. **本机 git 环境限制（仅影响本机，不影响仓库）**：分支名不能带 `/`（`feat/api-core` 的 ref 写不进去，提交会变成 dangling），故用 `feat-api-core`；`git checkout <rev> -- <path>` 会误删整个 `data/`，改用 `git show` 直读对象库。
+6. **`feat/ai-engine` 分支的构成需队长确认**：该分支（`81ee294`）除 `lib/ai.ts` 外，还包含 `app/api/**`（5 个路由，文件头自注"泳道2"）、`lib/data.ts`、`lib/estimate.ts`、`scripts/import_used.py`、`app/prices|verify|report/*/page.tsx`、`components/**`、20 款数据与 20 份报告。即 1A/1B/2/D 的目录都在其中。与 C 的分支合并时这 8 个文件是 **add/add 冲突**（两边各自新增了同名文件），需要二选一，不是简单的数据覆盖。
 
-## 七、D 接手待办
+## 八、D 接手待办
 
 - [ ] 联调前端（泳道1B 验机/报告页）——后端 API 已全部就绪
 - [ ] 如需补全 T2 机型（12 款行情机）数据，用同样流程跑 `import_used.py`
@@ -85,7 +102,7 @@ metrics { current_price, percentile_30d, used_95_median, used_95_ratio_pct, week
 - [ ] 真实照片再补 2 张（轻划痕/重损各一）POST `/api/verify` 验证五档边界
 - [ ] 待 E 的 20 款 `models.json` 合入 main 后，重跑一次 `/api/report/[model]` 生成全量 20 份报告
 
-## 八、协作约定
+## 九、协作约定
 
 - 分支 `feat-api-core`，基于 `origin/main`（commit `4a03f3b`）之上，PR diff 只含本泳道改动（14 个文件）
 - 任务书原文要求双推 + PR 开在 GitHub；当前本机 remote 仅指向 Gitee（`https://gitee.com/its-a-shame/hackathon-competition`），PR 先在 Gitee 侧开（base: main，head: feat-api-core），由队长同步到 GitHub
