@@ -73,21 +73,30 @@
 ### v2（队长给的基线，已实测）
 最初版本，见 `任务书/05`。
 
-## 四、回归测试计划（需要 3 张真机照片）
+## 四、回归结果（2026-11-03 已完成）
 
-| 用例 | 拍什么 | 期望 |
-|---|---|---|
-| T1 完好机 | 正面 + 背面，自然光 | `visible_defects` 为 `[]`，`condition_score` ≥ 95 |
-| T2 轻划痕 | 屏幕斜 45° 打光，让划痕反光 | 至少 1 条 `type:"划痕", severity:"轻微"`，分数 80-94 |
-| T3 重损 | 碎屏或明显磕碰 | `severity:"严重"`，分数 < 50 |
+测试图在 `docs/prompts/test-images/`（来源与许可见同目录 `CREDITS.md`）。其中 T2 是
+在 T1 原图上合成的 3 条细划痕 + 1 处边框小磕碰；T1/T3 是 Wikimedia Commons 的
+CC BY-SA 4.0 公开图。**E 的真机照片还没拍，补拍后覆盖同名文件、重跑脚本即可。**
 
-**稳定性判定**：每张图连跑 3 次，`condition_score` 极差 ≤ 10 分。超了就把 `temperature` 调到 0（`lib/ai.ts` 默认 0.2）。
+| 用例 | 图片 | 期望 | glm-4v-flash（3 次） | qwen3-vl-plus（3 次） | 结论 |
+|---|---|---|---|---|---|
+| T1 完好机 | `pristine.jpg` | 无瑕疵，分数 ≥95 | 98 / 98 / 98（极差 0） | 95 / 98 / 95（极差 3） | ✅ 两模型都稳定 |
+| T2 轻划痕 | `scratched.jpg` | 至少 1 条轻微划痕，80-94 | 90 / 90 / 90（极差 0） | 92 / 88 / 92（极差 4） | ✅ 都识别出 2 处瑕疵 |
+| T3 重损 | `cracked.jpg` | 严重瑕疵，分数 <50 | 10 / 10 / 10（极差 0） | 30 / 20 / 20（极差 10） | ✅ 都在 50 以下 |
 
-**另外 3 个边界用例**（不需要真机，用网图或截图即可）：
+**稳定性判定**：每张图连跑 3 次，`condition_score` 极差 ≤10 分 → 本次全部通过。
+`temperature` 已固定为 0；`glm-4v-flash` 极差全为 0，`qwen3-vl-plus` 最差 10 分（T3，
+刚好压线），答辩时如实说「备选通道的边界样本波动更大」。
+
+详细逐次 JSON 见 `docs/prompts/verify-regression.json`，汇总见 `verify-regression.md`。
+复跑命令：`python scripts/test_vision_stability.py --models glm-4v-flash,qwen3-vl-plus`。
+
+**另外 3 个边界用例**（还没系统跑，答辩前补）：
 
 | 用例 | 输入 | 期望 |
 |---|---|---|
-| T4 非产品 | 一张风景照 | `{"error":"not_product"}` |
+| T4 非产品 | 一张风景照 | `{"error":"not_product"}`（已手测截图，返回正确） |
 | T5 模糊 | 严重失焦 | `confidence` < 40，`notes` 说明模糊 |
 | T6 局部 | 只拍摄像头模组 | `area` 用 `镜头`，不要硬套九宫格 |
 

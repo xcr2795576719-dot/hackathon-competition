@@ -13,9 +13,20 @@ Next.js 14 App Router + TypeScript + Tailwind CSS｜ECharts（echarts-for-react�
 
 ```bash
 cp .env.example .env      # 填 ZHIPU_KEY / DASHSCOPE_KEY
-pnpm install
-pnpm dev
+npm install
+npm run dev               # http://localhost:3000
+npm run build             # 提 PR 前必须过
 ```
+
+报告预生成与识机回归（需要 `.env` 里的 key）：
+
+```bash
+python scripts/gen_reports.py --all --force
+python scripts/test_vision_stability.py --models glm-4v-flash,qwen3-vl-plus
+```
+
+> 当前 `data/` 是种子数据（`source: seed`），20 份报告已预生成；T2 十四款暂无二手样本，
+> 报告结论为 `wait`，属数据未采集，不是脚本故障。详见 `docs/STATUS-2026-11-03-AI工程.md`。
 
 ## 结构
 

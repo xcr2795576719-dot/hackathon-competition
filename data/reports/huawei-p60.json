@@ -1,0 +1,40 @@
+{
+  "verdict": "wait",
+  "verdict_reason": "新机现价2329元，较首发价低48.1%；暂无二手样本，先等价格稳定。",
+  "price_position": "较首发价低2159元，降幅48.1%，暂无30天历史价对比依据",
+  "pros": [
+    "华为P60为旗舰影像机型，支持可变光圈",
+    "8+256GB内存组合满足主流使用需求",
+    "新机未激活，享有官方保修权益"
+  ],
+  "cons": [
+    "无二手成交样本，缺乏市场流通验证",
+    "未提供序列号，无法验证原始配置与保修状态"
+  ],
+  "pitfalls": [
+    "收货时用指甲沿中框摸一圈，有刮手感可能为换后盖翻新机",
+    "必须用序列号官网查询原始容量，防扩容机变砖风险",
+    "卖家若只给IMEI不给序列号，应直接放弃交易"
+  ],
+  "sources": [
+    {
+      "title": "商品页",
+      "url": "https://search.jd.com/Search?keyword=华为P60&enc=utf-8"
+    }
+  ],
+  "model_id": "huawei-p60",
+  "model_title": "华为 华为 P60 8+256G",
+  "generated_at": "2026-11-03T18:58:11+08:00",
+  "generator": "qwen-plus",
+  "models_source": "models.json",
+  "rule": 4,
+  "rule_text": "未触发买入条件，等一个更好的价格点",
+  "metrics": {
+    "current_price": 2329,
+    "percentile_30d": null,
+    "used_95_median": null,
+    "used_95_ratio_pct": null,
+    "week_change_pct": null,
+    "used_sample_count": 0
+  }
+}

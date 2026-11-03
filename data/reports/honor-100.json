@@ -1,20 +1,40 @@
 {
   "verdict": "wait",
-  "verdict_reason": "数据不足，等一个更好的价格点",
-  "price_position": "历史价摘要暂无数据",
+  "verdict_reason": "新机现价1499元，较首发价低40.0%；暂无二手样本，先等价格稳定。",
+  "price_position": "较首发价低1000元，降幅40.0%，暂无30天历史价对比依据",
   "pros": [
-    "暂无可确认的优点（数据不足）"
+    "首发价2499元，当前新机价1499元，直降1000元",
+    "12+256G大内存组合，满足主流多任务与存储需求",
+    "荣耀100为2023年中高端机型，影像与曲面屏属同代优势"
   ],
   "cons": [
-    "暂无可确认的缺点（数据不足）"
+    "无二手样本参考，缺乏成色、流通价与折旧率验证",
+    "未提供序列号或IMEI，无法验证是否扩容/官换/进水等核心风险"
   ],
   "pitfalls": [
-    "翻新机后盖缝隙不均、残胶或听筒网罩翘起风险需现场查验"
+    "收货时用指甲沿中框摸一圈，有刮手感可能为换后盖翻新机",
+    "必须用序列号查官网原始配置，容量不符即为扩容机",
+    "SIM卡托内液触指示器若变红，或镜头内有雾痕，即为进水机"
   ],
-  "sources": [],
+  "sources": [
+    {
+      "title": "商品页",
+      "url": "https://search.jd.com/Search?keyword=荣耀100&enc=utf-8"
+    }
+  ],
   "model_id": "honor-100",
-  "model_title": "荣耀 荣耀 100",
-  "generated_at": "2026-11-03T11:38:10+08:00",
+  "model_title": "荣耀 荣耀 100 12+256G",
+  "generated_at": "2026-11-03T18:58:19+08:00",
   "generator": "qwen-plus",
-  "models_source": "fallback"
+  "models_source": "models.json",
+  "rule": 4,
+  "rule_text": "未触发买入条件，等一个更好的价格点",
+  "metrics": {
+    "current_price": 1499,
+    "percentile_30d": null,
+    "used_95_median": null,
+    "used_95_ratio_pct": null,
+    "week_change_pct": null,
+    "used_sample_count": 0
+  }
 }

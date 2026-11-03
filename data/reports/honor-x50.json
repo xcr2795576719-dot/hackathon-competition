@@ -1,20 +1,40 @@
 {
   "verdict": "wait",
-  "verdict_reason": "等一个更好的价格点",
-  "price_position": "价格数据不足，无法定位历史位置",
+  "verdict_reason": "新机现价809元，较首发价低42.2%；暂无二手样本，先等价格稳定。",
+  "price_position": "较首发价1399元低571元，降幅42.2%，暂无30天历史价对比",
   "pros": [
-    "暂无可确认的优点（数据不足）"
+    "首发价1399元，当前新机价仅809元",
+    "8GB+128GB配置满足日常基础使用",
+    "荣耀X50为中端主力机型，系统更新支持较稳"
   ],
   "cons": [
-    "暂无可确认的缺点（数据不足）"
+    "无二手交易样本，成色与流通风险不明",
+    "未提供序列号或IMEI，无法验证原始配置"
   ],
   "pitfalls": [
-    "扩容机需查序列号验原始容量，否则易购得不稳机型"
+    "收货时用指甲沿中框摸一圈，有刮手感可能是换过后盖",
+    "务必用序列号查官网原始容量，防扩容机变砖",
+    "检查SIM卡托内液触指示器是否变红，防进水隐患"
   ],
-  "sources": [],
+  "sources": [
+    {
+      "title": "商品页",
+      "url": "https://search.jd.com/Search?keyword=荣耀X50&enc=utf-8"
+    }
+  ],
   "model_id": "honor-x50",
-  "model_title": "荣耀 荣耀 X50",
-  "generated_at": "2026-11-03T11:38:13+08:00",
+  "model_title": "荣耀 荣耀 X50 8+128G",
+  "generated_at": "2026-11-03T18:58:33+08:00",
   "generator": "qwen-plus",
-  "models_source": "fallback"
+  "models_source": "models.json",
+  "rule": 4,
+  "rule_text": "未触发买入条件，等一个更好的价格点",
+  "metrics": {
+    "current_price": 809,
+    "percentile_30d": null,
+    "used_95_median": null,
+    "used_95_ratio_pct": null,
+    "week_change_pct": null,
+    "used_sample_count": 0
+  }
 }

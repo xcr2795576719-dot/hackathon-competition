@@ -1,0 +1,456 @@
+{
+  "generated_at": "2026-11-03T19:01:54+08:00",
+  "prompt_version": "v2.1",
+  "prompt_sha": "c581eeb27ae9",
+  "runs_per_image": 3,
+  "models": {
+    "glm-4v-flash": {
+      "cases": {
+        "T1 完好机": {
+          "file": "pristine.jpg",
+          "runs": [
+            {
+              "raw": "```json\n{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 13 Pro Max\",\n  \"confidence\": 80,\n  \"visible_defects\": [],\n  \"condition_score\": 98,\n  \"notes\": \"\"\n}\n```\n",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 13 Pro Max",
+                "confidence": 80,
+                "visible_defects": [],
+                "condition_score": 98,
+                "notes": ""
+              },
+              "error": null
+            },
+            {
+              "raw": "```json\n{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 13 Pro Max\",\n  \"confidence\": 80,\n  \"visible_defects\": [],\n  \"condition_score\": 98,\n  \"notes\": \"\"\n}\n```",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 13 Pro Max",
+                "confidence": 80,
+                "visible_defects": [],
+                "condition_score": 98,
+                "notes": ""
+              },
+              "error": null
+            },
+            {
+              "raw": "```json\n{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 13 Pro Max\",\n  \"confidence\": 80,\n  \"visible_defects\": [],\n  \"condition_score\": 98,\n  \"notes\": \"\"\n}\n```\n",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 13 Pro Max",
+                "confidence": 80,
+                "visible_defects": [],
+                "condition_score": 98,
+                "notes": ""
+              },
+              "error": null
+            }
+          ],
+          "condition_scores": [
+            98,
+            98,
+            98
+          ],
+          "condition_spread": 0,
+          "confidence": [
+            80,
+            80,
+            80
+          ],
+          "stable": true
+        },
+        "T2 轻划痕": {
+          "file": "scratched.jpg",
+          "runs": [
+            {
+              "raw": "```json\n{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 13 Pro Max\",\n  \"confidence\": 80,\n  \"visible_defects\": [\n    {\n      \"area\": \"背面\",\n      \"type\": \"划痕\",\n      \"severity\": \"轻微\",\n      \"detail\": \"左上方有细微划痕\"\n    },\n    {\n      \"area\": \"背面\",\n      \"type\": \"划痕\",\n      \"severity\": \"轻微\",\n      \"detail\": \"右下方有细微划痕\"\n    }\n  ],\n  \"condition_score\": 90,\n  \"notes\": \"背面有轻微划痕，不影响整体美观\"\n}\n```\n",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 13 Pro Max",
+                "confidence": 80,
+                "visible_defects": [
+                  {
+                    "area": "背面",
+                    "type": "划痕",
+                    "severity": "轻微",
+                    "detail": "左上方有细微划痕"
+                  },
+                  {
+                    "area": "背面",
+                    "type": "划痕",
+                    "severity": "轻微",
+                    "detail": "右下方有细微划痕"
+                  }
+                ],
+                "condition_score": 90,
+                "notes": "背面有轻微划痕，不影响整体美观"
+              },
+              "error": null
+            },
+            {
+              "raw": "```json\n{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 13 Pro Max\",\n  \"confidence\": 80,\n  \"visible_defects\": [\n    {\n      \"area\": \"背面\",\n      \"type\": \"划痕\",\n      \"severity\": \"轻微\",\n      \"detail\": \"左上方有细微划痕\"\n    },\n    {\n      \"area\": \"背面\",\n      \"type\": \"划痕\",\n      \"severity\": \"轻微\",\n      \"detail\": \"右下方有细微划痕\"\n    }\n  ],\n  \"condition_score\": 90,\n  \"notes\": \"背面有轻微划痕，不影响整体美观\"\n}\n```\n",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 13 Pro Max",
+                "confidence": 80,
+                "visible_defects": [
+                  {
+                    "area": "背面",
+                    "type": "划痕",
+                    "severity": "轻微",
+                    "detail": "左上方有细微划痕"
+                  },
+                  {
+                    "area": "背面",
+                    "type": "划痕",
+                    "severity": "轻微",
+                    "detail": "右下方有细微划痕"
+                  }
+                ],
+                "condition_score": 90,
+                "notes": "背面有轻微划痕，不影响整体美观"
+              },
+              "error": null
+            },
+            {
+              "raw": "```json\n{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 13 Pro Max\",\n  \"confidence\": 80,\n  \"visible_defects\": [\n    {\n      \"area\": \"背面\",\n      \"type\": \"划痕\",\n      \"severity\": \"轻微\",\n      \"detail\": \"左上方有细微划痕\"\n    },\n    {\n      \"area\": \"背面\",\n      \"type\": \"划痕\",\n      \"severity\": \"轻微\",\n      \"detail\": \"右下方有细微划痕\"\n    }\n  ],\n  \"condition_score\": 90,\n  \"notes\": \"背面有轻微划痕，不影响整体美观\"\n}\n```\n",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 13 Pro Max",
+                "confidence": 80,
+                "visible_defects": [
+                  {
+                    "area": "背面",
+                    "type": "划痕",
+                    "severity": "轻微",
+                    "detail": "左上方有细微划痕"
+                  },
+                  {
+                    "area": "背面",
+                    "type": "划痕",
+                    "severity": "轻微",
+                    "detail": "右下方有细微划痕"
+                  }
+                ],
+                "condition_score": 90,
+                "notes": "背面有轻微划痕，不影响整体美观"
+              },
+              "error": null
+            }
+          ],
+          "condition_scores": [
+            90,
+            90,
+            90
+          ],
+          "condition_spread": 0,
+          "confidence": [
+            80,
+            80,
+            80
+          ],
+          "stable": true
+        },
+        "T3 重损": {
+          "file": "cracked.jpg",
+          "runs": [
+            {
+              "raw": "```json\n{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 7 Plus\",\n  \"confidence\": 80,\n  \"visible_defects\": [\n    {\n      \"area\": \"屏幕\",\n      \"type\": \"裂纹\",\n      \"severity\": \"严重\",\n      \"detail\": \"整个屏幕布满了裂纹\"\n    }\n  ],\n  \"condition_score\": 10,\n  \"notes\": \"屏幕严重损坏，可能影响正常使用\"\n}\n```\n",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 7 Plus",
+                "confidence": 80,
+                "visible_defects": [
+                  {
+                    "area": "屏幕",
+                    "type": "裂纹",
+                    "severity": "严重",
+                    "detail": "整个屏幕布满了裂纹"
+                  }
+                ],
+                "condition_score": 10,
+                "notes": "屏幕严重损坏，可能影响正常使用"
+              },
+              "error": null
+            },
+            {
+              "raw": "```json\n{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 7 Plus\",\n  \"confidence\": 80,\n  \"visible_defects\": [\n    {\n      \"area\": \"屏幕\",\n      \"type\": \"裂纹\",\n      \"severity\": \"严重\",\n      \"detail\": \"整个屏幕布满了裂纹\"\n    }\n  ],\n  \"condition_score\": 10,\n  \"notes\": \"屏幕严重损坏，可能影响正常使用\"\n}\n```\n",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 7 Plus",
+                "confidence": 80,
+                "visible_defects": [
+                  {
+                    "area": "屏幕",
+                    "type": "裂纹",
+                    "severity": "严重",
+                    "detail": "整个屏幕布满了裂纹"
+                  }
+                ],
+                "condition_score": 10,
+                "notes": "屏幕严重损坏，可能影响正常使用"
+              },
+              "error": null
+            },
+            {
+              "raw": "```json\n{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 7 Plus\",\n  \"confidence\": 80,\n  \"visible_defects\": [\n    {\n      \"area\": \"屏幕\",\n      \"type\": \"裂纹\",\n      \"severity\": \"严重\",\n      \"detail\": \"整个屏幕布满了严重的裂纹\"\n    }\n  ],\n  \"condition_score\": 10,\n  \"notes\": \"屏幕严重损坏，影响正常使用\"\n}\n```\n",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 7 Plus",
+                "confidence": 80,
+                "visible_defects": [
+                  {
+                    "area": "屏幕",
+                    "type": "裂纹",
+                    "severity": "严重",
+                    "detail": "整个屏幕布满了严重的裂纹"
+                  }
+                ],
+                "condition_score": 10,
+                "notes": "屏幕严重损坏，影响正常使用"
+              },
+              "error": null
+            }
+          ],
+          "condition_scores": [
+            10,
+            10,
+            10
+          ],
+          "condition_spread": 0,
+          "confidence": [
+            80,
+            80,
+            80
+          ],
+          "stable": true
+        }
+      },
+      "error": null
+    },
+    "qwen3-vl-plus": {
+      "cases": {
+        "T1 完好机": {
+          "file": "pristine.jpg",
+          "runs": [
+            {
+              "raw": "{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 13 Pro 128GB 森林绿\",\n  \"confidence\": 90,\n  \"visible_defects\": [],\n  \"condition_score\": 95,\n  \"notes\": \"背壳无划痕磕碰，镜头模组干净，整体成色新\"\n}",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 13 Pro 128GB 森林绿",
+                "confidence": 90,
+                "visible_defects": [],
+                "condition_score": 95,
+                "notes": "背壳无划痕磕碰，镜头模组干净，整体成色新"
+              },
+              "error": null
+            },
+            {
+              "raw": "{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 13 Pro 128GB 森林绿\",\n  \"confidence\": 95,\n  \"visible_defects\": [],\n  \"condition_score\": 98,\n  \"notes\": \"背壳洁净无划痕，镜头模组完好，整体成色极佳\"\n}",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 13 Pro 128GB 森林绿",
+                "confidence": 95,
+                "visible_defects": [],
+                "condition_score": 98,
+                "notes": "背壳洁净无划痕，镜头模组完好，整体成色极佳"
+              },
+              "error": null
+            },
+            {
+              "raw": "{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 13 Pro 128GB 森林绿\",\n  \"confidence\": 90,\n  \"visible_defects\": [],\n  \"condition_score\": 95,\n  \"notes\": \"背壳无划痕磕碰，镜头模组干净，整体成色新\"\n}",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 13 Pro 128GB 森林绿",
+                "confidence": 90,
+                "visible_defects": [],
+                "condition_score": 95,
+                "notes": "背壳无划痕磕碰，镜头模组干净，整体成色新"
+              },
+              "error": null
+            }
+          ],
+          "condition_scores": [
+            95,
+            98,
+            95
+          ],
+          "condition_spread": 3,
+          "confidence": [
+            90,
+            95,
+            90
+          ],
+          "stable": true
+        },
+        "T2 轻划痕": {
+          "file": "scratched.jpg",
+          "runs": [
+            {
+              "raw": "{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 13 Pro 128GB 深绿色\",\n  \"confidence\": 90,\n  \"visible_defects\": [\n    {\n      \"area\": \"背面\",\n      \"type\": \"划痕\",\n      \"severity\": \"轻微\",\n      \"detail\": \"背壳下半部有两条交叉细白线状划痕，疑似保护膜残留或浅表划伤\"\n    },\n    {\n      \"area\": \"下右\",\n      \"type\": \"磕碰\",\n      \"severity\": \"轻微\",\n      \"detail\": \"右下角边缘有微小凸起白点，疑似轻微磕碰导致漆面微损\"\n    }\n  ],\n  \"condition_score\": 92,\n  \"notes\": \"整体成色新，划痕疑似保护膜未撕净，非真实损伤\"\n}",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 13 Pro 128GB 深绿色",
+                "confidence": 90,
+                "visible_defects": [
+                  {
+                    "area": "背面",
+                    "type": "划痕",
+                    "severity": "轻微",
+                    "detail": "背壳下半部有两条交叉细白线状划痕，疑似保护膜残留或浅表划伤"
+                  },
+                  {
+                    "area": "下右",
+                    "type": "磕碰",
+                    "severity": "轻微",
+                    "detail": "右下角边缘有微小凸起白点，疑似轻微磕碰导致漆面微损"
+                  }
+                ],
+                "condition_score": 92,
+                "notes": "整体成色新，划痕疑似保护膜未撕净，非真实损伤"
+              },
+              "error": null
+            },
+            {
+              "raw": "{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 13 Pro 128GB 暗夜绿\",\n  \"confidence\": 90,\n  \"visible_defects\": [\n    {\n      \"area\": \"背面\",\n      \"type\": \"划痕\",\n      \"severity\": \"轻微\",\n      \"detail\": \"背壳下半部有两条交叉细白线状划痕，疑似保护膜残留或浅表划伤\"\n    },\n    {\n      \"area\": \"下右\",\n      \"type\": \"磕碰\",\n      \"severity\": \"轻微\",\n      \"detail\": \"右下角边缘有微小凸起点，可能为轻微磕碰痕迹\"\n    }\n  ],\n  \"condition_score\": 88,\n  \"notes\": \"背壳有轻微划痕与边角磕碰，整体成色良好；划痕疑似保护膜未撕净\"\n}",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 13 Pro 128GB 暗夜绿",
+                "confidence": 90,
+                "visible_defects": [
+                  {
+                    "area": "背面",
+                    "type": "划痕",
+                    "severity": "轻微",
+                    "detail": "背壳下半部有两条交叉细白线状划痕，疑似保护膜残留或浅表划伤"
+                  },
+                  {
+                    "area": "下右",
+                    "type": "磕碰",
+                    "severity": "轻微",
+                    "detail": "右下角边缘有微小凸起点，可能为轻微磕碰痕迹"
+                  }
+                ],
+                "condition_score": 88,
+                "notes": "背壳有轻微划痕与边角磕碰，整体成色良好；划痕疑似保护膜未撕净"
+              },
+              "error": null
+            },
+            {
+              "raw": "{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 13 Pro 128GB 暗夜绿\",\n  \"confidence\": 90,\n  \"visible_defects\": [\n    {\n      \"area\": \"背面\",\n      \"type\": \"划痕\",\n      \"severity\": \"轻微\",\n      \"detail\": \"背壳下半部有两条交叉细白线状划痕，疑似保护膜残留或浅表划伤\"\n    },\n    {\n      \"area\": \"下右\",\n      \"type\": \"磕碰\",\n      \"severity\": \"轻微\",\n      \"detail\": \"右下角边缘有微小凸起点，疑似轻微磕碰痕迹\"\n    }\n  ],\n  \"condition_score\": 92,\n  \"notes\": \"整体成色新，划痕疑似保护膜未撕净，非真实损伤\"\n}",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 13 Pro 128GB 暗夜绿",
+                "confidence": 90,
+                "visible_defects": [
+                  {
+                    "area": "背面",
+                    "type": "划痕",
+                    "severity": "轻微",
+                    "detail": "背壳下半部有两条交叉细白线状划痕，疑似保护膜残留或浅表划伤"
+                  },
+                  {
+                    "area": "下右",
+                    "type": "磕碰",
+                    "severity": "轻微",
+                    "detail": "右下角边缘有微小凸起点，疑似轻微磕碰痕迹"
+                  }
+                ],
+                "condition_score": 92,
+                "notes": "整体成色新，划痕疑似保护膜未撕净，非真实损伤"
+              },
+              "error": null
+            }
+          ],
+          "condition_scores": [
+            92,
+            88,
+            92
+          ],
+          "condition_spread": 4,
+          "confidence": [
+            90,
+            90,
+            90
+          ],
+          "stable": true
+        },
+        "T3 重损": {
+          "file": "cracked.jpg",
+          "runs": [
+            {
+              "raw": "{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 6s 32GB 黑色\",\n  \"confidence\": 85,\n  \"visible_defects\": [\n    {\n      \"area\": \"屏幕\",\n      \"type\": \"裂纹\",\n      \"severity\": \"严重\",\n      \"detail\": \"屏幕全覆盖蛛网状碎裂，从左上延伸至右下，触控区亦有密集裂痕\"\n    }\n  ],\n  \"condition_score\": 30,\n  \"notes\": \"屏幕严重碎裂，Home键完好，边框无明显变形\"\n}",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 6s 32GB 黑色",
+                "confidence": 85,
+                "visible_defects": [
+                  {
+                    "area": "屏幕",
+                    "type": "裂纹",
+                    "severity": "严重",
+                    "detail": "屏幕全覆盖蛛网状碎裂，从左上延伸至右下，触控区亦有密集裂痕"
+                  }
+                ],
+                "condition_score": 30,
+                "notes": "屏幕严重碎裂，Home键完好，边框无明显变形"
+              },
+              "error": null
+            },
+            {
+              "raw": "{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 6s 32GB 黑色\",\n  \"confidence\": 85,\n  \"visible_defects\": [\n    {\n      \"area\": \"屏幕\",\n      \"type\": \"裂纹\",\n      \"severity\": \"严重\",\n      \"detail\": \"屏幕全覆盖蛛网状碎裂，从左上延伸至右下，触控区域亦有密集裂痕\"\n    }\n  ],\n  \"condition_score\": 20,\n  \"notes\": \"屏幕严重碎裂，Home键完好；边框无明显磕碰，但整体成色极差\"\n}",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 6s 32GB 黑色",
+                "confidence": 85,
+                "visible_defects": [
+                  {
+                    "area": "屏幕",
+                    "type": "裂纹",
+                    "severity": "严重",
+                    "detail": "屏幕全覆盖蛛网状碎裂，从左上延伸至右下，触控区域亦有密集裂痕"
+                  }
+                ],
+                "condition_score": 20,
+                "notes": "屏幕严重碎裂，Home键完好；边框无明显磕碰，但整体成色极差"
+              },
+              "error": null
+            },
+            {
+              "raw": "{\n  \"category\": \"手机\",\n  \"model_guess\": \"iPhone 6s 32GB 黑色\",\n  \"confidence\": 85,\n  \"visible_defects\": [\n    {\n      \"area\": \"屏幕\",\n      \"type\": \"裂纹\",\n      \"severity\": \"严重\",\n      \"detail\": \"屏幕全覆盖蛛网状碎裂，从左上延伸至右下，触控区域亦有密集裂痕\"\n    }\n  ],\n  \"condition_score\": 20,\n  \"notes\": \"屏幕严重碎裂，Home键完好，边框无明显变形\"\n}",
+              "json": {
+                "category": "手机",
+                "model_guess": "iPhone 6s 32GB 黑色",
+                "confidence": 85,
+                "visible_defects": [
+                  {
+                    "area": "屏幕",
+                    "type": "裂纹",
+                    "severity": "严重",
+                    "detail": "屏幕全覆盖蛛网状碎裂，从左上延伸至右下，触控区域亦有密集裂痕"
+                  }
+                ],
+                "condition_score": 20,
+                "notes": "屏幕严重碎裂，Home键完好，边框无明显变形"
+              },
+              "error": null
+            }
+          ],
+          "condition_scores": [
+            30,
+            20,
+            20
+          ],
+          "condition_spread": 10,
+          "confidence": [
+            85,
+            85,
+            85
+          ],
+          "stable": true
+        }
+      },
+      "error": null
+    }
+  }
+}

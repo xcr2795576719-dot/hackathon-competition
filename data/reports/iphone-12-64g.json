@@ -1,26 +1,40 @@
 {
   "verdict": "wait",
-  "verdict_reason": "数据不足，无法判断价格位置与风险，等一个更好的价格点",
-  "price_position": "历史价摘要暂无数据，无法定位当前价位置",
+  "verdict_reason": "新机现价2469元，较首发价低55.1%；暂无二手样本，先等价格稳定。",
+  "price_position": "较首发价5499元低55.1%，但无30天历史价对比，位置难判定",
   "pros": [
-    "iPhone 12 仍具备A14性能与5G支持",
-    "64GB版本机身轻便，适合基础使用",
-    "国行版本可享完整国内联保（如为国行）"
+    "首发价5499元，当前新机价仅2469元，降幅超五成",
+    "iPhone 12仍支持iOS 17，基础功能流畅可用",
+    "64GB版本为官方原生容量，非扩容机风险较低"
   ],
   "cons": [
-    "64GB存储已显局促，易满存",
-    "电池老化普遍，健康度可能低于80%",
-    "新机现价与二手样本均无数据，比价困难"
+    "无二手样本参考，难评估同配置市场流通成色与折价水平",
+    "未提供序列号、型号号码等关键验机信息，官换/官翻无法排除"
   ],
   "pitfalls": [
-    "卖家不提供序列号或型号号码首字母非M，可能是官换/官翻机",
-    "未查官网原始配置，无法排除扩容机风险",
-    "电池健康度被篡改或更换过，标称95新但实际续航差"
+    "不查序列号原始配置，可能买到扩容机，升级系统易变砖",
+    "忽略型号号码首字母（如N/F开头），误将官换或官翻当零售机",
+    "未实测电池健康度，标95新但实际低于80%属常见虚假描述"
   ],
-  "sources": [],
+  "sources": [
+    {
+      "title": "商品页",
+      "url": "https://search.jd.com/Search?keyword=iPhone%2012%2064G&enc=utf-8"
+    }
+  ],
   "model_id": "iphone-12-64g",
   "model_title": "Apple iPhone 12 64G",
-  "generated_at": "2026-11-03T11:36:53+08:00",
+  "generated_at": "2026-11-03T18:57:42+08:00",
   "generator": "qwen-plus",
-  "models_source": "fallback"
+  "models_source": "models.json",
+  "rule": 4,
+  "rule_text": "未触发买入条件，等一个更好的价格点",
+  "metrics": {
+    "current_price": 2469,
+    "percentile_30d": null,
+    "used_95_median": null,
+    "used_95_ratio_pct": null,
+    "week_change_pct": null,
+    "used_sample_count": 0
+  }
 }

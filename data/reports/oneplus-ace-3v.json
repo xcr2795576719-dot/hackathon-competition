@@ -1,22 +1,40 @@
 {
   "verdict": "wait",
-  "verdict_reason": "数据不足，无法判断价格位置与风险，等一个更好的价格点",
-  "price_position": "暂无历史价数据，无法定位当前价位置",
+  "verdict_reason": "新机现价1399元，较首发价低30.0%；暂无二手样本，先等价格稳定。",
+  "price_position": "新机现价1399元，暂无30天历史价可对比",
   "pros": [
-    "暂无可确认的优点（数据不足）"
+    "首发价1999元，当前新机价1399元，降价幅度大",
+    "一加Ace 3V为中端性能机型，12+256G配置主流",
+    "京东平台销售，渠道相对正规，售后有基础保障"
   ],
   "cons": [
-    "暂无可确认的缺点（数据不足）"
+    "无二手成交样本，缺乏市场流通热度与成色参考",
+    "无评测摘要，实际性能与续航表现未知"
   ],
   "pitfalls": [
-    "翻新机可能有后盖缝隙不均、屏幕听筒网罩翘起等外观破绽",
-    "扩容机外观与系统显示正常，但官网查序列号可发现容量不符",
-    "官换机（N开头）被当全新机售卖是常见套路"
+    "收货时用指甲沿中框摸一圈，有刮手感可能是换过后盖或屏幕",
+    "必须用序列号查官网原始配置，防扩容机（容量与官网不一致即为扩容）",
+    "检查SIM卡托内液触指示器是否变红，镜片内侧有无水渍雾痕"
   ],
-  "sources": [],
+  "sources": [
+    {
+      "title": "商品页",
+      "url": "https://search.jd.com/Search?keyword=一加Ace3V&enc=utf-8"
+    }
+  ],
   "model_id": "oneplus-ace-3v",
-  "model_title": "一加 一加 Ace 3V",
-  "generated_at": "2026-11-03T11:38:23+08:00",
+  "model_title": "一加 一加 Ace 3V 12+256G",
+  "generated_at": "2026-11-03T18:59:22+08:00",
   "generator": "qwen-plus",
-  "models_source": "fallback"
+  "models_source": "models.json",
+  "rule": 4,
+  "rule_text": "未触发买入条件，等一个更好的价格点",
+  "metrics": {
+    "current_price": 1399,
+    "percentile_30d": null,
+    "used_95_median": null,
+    "used_95_ratio_pct": null,
+    "week_change_pct": null,
+    "used_sample_count": 0
+  }
 }
