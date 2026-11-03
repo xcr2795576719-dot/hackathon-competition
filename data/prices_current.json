@@ -1,1 +1,22 @@
-{}
+{
+  "xiaomi-14": {
+    "jd": 2368,
+    "captured_at": "2026-11-03T20:00:00+08:00",
+    "source": "manual"
+  },
+  "redmi-k70": {
+    "jd": 2368,
+    "captured_at": "2026-11-03T20:00:00+08:00",
+    "source": "manual"
+  },
+  "oneplus-ace-3": {
+    "jd": 2368,
+    "captured_at": "2026-11-03T20:00:00+08:00",
+    "source": "manual"
+  },
+  "huawei-mate-60-pro": {
+    "jd": 3578,
+    "captured_at": "2026-11-03T20:00:00+08:00",
+    "source": "manual"
+  }
+}
