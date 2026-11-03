@@ -1,1 +1,202 @@
-[]
+[
+  {
+    "id": "iphone-13-128g",
+    "brand": "Apple",
+    "name": "iPhone 13",
+    "variant": "128G",
+    "tier": 1,
+    "launch_price": 5999,
+    "jd_url": "https://search.jd.com/Search?keyword=iPhone%2013%20128G&enc=1",
+    "keywords_xianyu": "iPhone13 128G 苹果13 国行"
+  },
+  {
+    "id": "iphone-14-pro-256g",
+    "brand": "Apple",
+    "name": "iPhone 14 Pro",
+    "variant": "256G",
+    "tier": 1,
+    "launch_price": 8899,
+    "jd_url": "https://search.jd.com/Search?keyword=iPhone%2014%20Pro%20256G&enc=1",
+    "keywords_xianyu": "iPhone14Pro 256G 苹果14Pro 国行"
+  },
+  {
+    "id": "huawei-mate-60-pro",
+    "brand": "华为",
+    "name": "Mate 60 Pro",
+    "variant": "12+512",
+    "tier": 1,
+    "launch_price": 6999,
+    "jd_url": "https://search.jd.com/Search?keyword=华为Mate60Pro&enc=1",
+    "keywords_xianyu": "Mate60Pro 华为mate60pro 512G"
+  },
+  {
+    "id": "xiaomi-14",
+    "brand": "小米",
+    "name": "小米 14",
+    "variant": "8+256",
+    "tier": 1,
+    "launch_price": 3999,
+    "jd_url": "https://search.jd.com/Search?keyword=小米14&enc=1",
+    "keywords_xianyu": "小米14 小米14 骁龙8Gen3"
+  },
+  {
+    "id": "redmi-k70",
+    "brand": "Redmi",
+    "name": "Redmi K70",
+    "variant": "12+256",
+    "tier": 1,
+    "launch_price": 2499,
+    "jd_url": "https://search.jd.com/Search?keyword=RedmiK70&enc=1",
+    "keywords_xianyu": "红米K70 RedmiK70 k70"
+  },
+  {
+    "id": "oneplus-ace-3",
+    "brand": "一加",
+    "name": "一加 Ace 3",
+    "variant": "12+256",
+    "tier": 1,
+    "launch_price": 2599,
+    "jd_url": "https://search.jd.com/Search?keyword=一加Ace3&enc=1",
+    "keywords_xianyu": "一加Ace3 ace3 一加3"
+  },
+  {
+    "id": "iphone-15-128g",
+    "brand": "Apple",
+    "name": "iPhone 15",
+    "variant": "128G",
+    "tier": 2,
+    "launch_price": 5999,
+    "jd_url": "https://search.jd.com/Search?keyword=iPhone%2015%20128G&enc=1",
+    "keywords_xianyu": "iPhone15 128G"
+  },
+  {
+    "id": "iphone-12-64g",
+    "brand": "Apple",
+    "name": "iPhone 12",
+    "variant": "64G",
+    "tier": 2,
+    "launch_price": 6299,
+    "jd_url": "https://search.jd.com/Search?keyword=iPhone%2012%2064G&enc=1",
+    "keywords_xianyu": "iPhone12 64G 苹果12"
+  },
+  {
+    "id": "xiaomi-13",
+    "brand": "小米",
+    "name": "小米 13",
+    "variant": "8+128",
+    "tier": 2,
+    "launch_price": 3999,
+    "jd_url": "https://search.jd.com/Search?keyword=小米13&enc=1",
+    "keywords_xianyu": "小米13"
+  },
+  {
+    "id": "redmi-note-13-pro",
+    "brand": "Redmi",
+    "name": "Redmi Note 13 Pro",
+    "variant": "8+128",
+    "tier": 2,
+    "launch_price": 1399,
+    "jd_url": "https://search.jd.com/Search?keyword=RedmiNote13Pro&enc=1",
+    "keywords_xianyu": "红米Note13Pro"
+  },
+  {
+    "id": "redmi-k60",
+    "brand": "Redmi",
+    "name": "Redmi K60",
+    "variant": "8+128",
+    "tier": 2,
+    "launch_price": 2499,
+    "jd_url": "https://search.jd.com/Search?keyword=RedmiK60&enc=1",
+    "keywords_xianyu": "红米K60"
+  },
+  {
+    "id": "honor-x50",
+    "brand": "荣耀",
+    "name": "荣耀 X50",
+    "variant": "8+128",
+    "tier": 2,
+    "launch_price": 1399,
+    "jd_url": "https://search.jd.com/Search?keyword=荣耀X50&enc=1",
+    "keywords_xianyu": "荣耀X50"
+  },
+  {
+    "id": "honor-90",
+    "brand": "荣耀",
+    "name": "荣耀 90",
+    "variant": "8+256",
+    "tier": 2,
+    "launch_price": 2499,
+    "jd_url": "https://search.jd.com/Search?keyword=荣耀90&enc=1",
+    "keywords_xianyu": "荣耀90"
+  },
+  {
+    "id": "honor-100",
+    "brand": "荣耀",
+    "name": "荣耀 100",
+    "variant": "12+256",
+    "tier": 2,
+    "launch_price": 2499,
+    "jd_url": "https://search.jd.com/Search?keyword=荣耀100&enc=1",
+    "keywords_xianyu": "荣耀100"
+  },
+  {
+    "id": "huawei-nova-12",
+    "brand": "华为",
+    "name": "华为 nova 12",
+    "variant": "256G",
+    "tier": 2,
+    "launch_price": 3199,
+    "jd_url": "https://search.jd.com/Search?keyword=华为nova12&enc=1",
+    "keywords_xianyu": "华为nova12 nova12"
+  },
+  {
+    "id": "vivo-s19",
+    "brand": "vivo",
+    "name": "vivo S19",
+    "variant": "8+256",
+    "tier": 2,
+    "launch_price": 2999,
+    "jd_url": "https://search.jd.com/Search?keyword=vivoS19&enc=1",
+    "keywords_xianyu": "vivoS19"
+  },
+  {
+    "id": "iqoo-neo9",
+    "brand": "iQOO",
+    "name": "iQOO Neo9",
+    "variant": "12+256",
+    "tier": 2,
+    "launch_price": 2299,
+    "jd_url": "https://search.jd.com/Search?keyword=iQOONeo9&enc=1",
+    "keywords_xianyu": "iQOONeo9"
+  },
+  {
+    "id": "oppo-reno-12",
+    "brand": "OPPO",
+    "name": "OPPO Reno 12",
+    "variant": "8+256",
+    "tier": 2,
+    "launch_price": 2699,
+    "jd_url": "https://search.jd.com/Search?keyword=OPPOReno12&enc=1",
+    "keywords_xianyu": "Reno12"
+  },
+  {
+    "id": "oneplus-ace-3v",
+    "brand": "一加",
+    "name": "一加 Ace 3V",
+    "variant": "12+256",
+    "tier": 2,
+    "launch_price": 1999,
+    "jd_url": "https://search.jd.com/Search?keyword=一加Ace3V&enc=1",
+    "keywords_xianyu": "一加Ace3V"
+  },
+  {
+    "id": "realme-gt-neo6-se",
+    "brand": "realme",
+    "name": "真我 GT Neo6 SE",
+    "variant": "12+256",
+    "tier": 2,
+    "launch_price": 1699,
+    "jd_url": "https://search.jd.com/Search?keyword=realmeGTNeo6SE&enc=1",
+    "keywords_xianyu": "真我GTNeo6SE"
+  }
+]
