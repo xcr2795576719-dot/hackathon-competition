@@ -1,8 +1,1 @@
-{
-  "iphone-13-128g": { "jd": 4299, "captured_at": "2026-11-03T08:00:00+08:00", "source": "mock" },
-  "iphone-14-pro-256g": { "jd": 7299, "captured_at": "2026-11-03T08:00:00+08:00", "source": "mock" },
-  "huawei-mate60-pro": { "jd": 6499, "captured_at": "2026-11-03T08:00:00+08:00", "source": "mock" },
-  "xiaomi-14": { "jd": 3699, "captured_at": "2026-11-03T08:00:00+08:00", "source": "mock" },
-  "redmi-k70": { "jd": 2199, "captured_at": "2026-11-03T08:00:00+08:00", "source": "mock" },
-  "oneplus-ace3": { "jd": 2399, "captured_at": "2026-11-03T08:00:00+08:00", "source": "mock" }
-}
+{}

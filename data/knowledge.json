@@ -1,5 +1,1 @@
-[
-  { "id": "k1", "category": "常见坑", "title": "iPhone 13 屏幕原装识别", "content": "iPhone 13 换过非原装屏会在 设置→通用→关于本机 显示『未知部件』，可在关于本机顶部查看；第三方屏通常亮度低、色彩偏色、原彩显示失效。", "source": "manual" },
-  { "id": "k2", "category": "验机", "title": "iPhone 13 电池健康", "content": "iPhone 13 电池健康低于 85% 建议砍价 100~200 元；低于 80% 苹果官方建议更换，费用约 500+ 元。", "source": "manual" },
-  { "id": "k3", "category": "验机", "title": "iPhone 13 拆修鉴别", "content": "iPhone 13 拆修机鉴别：检查屏幕边缘胶水是否均匀、螺丝是否有拧动痕迹、卡托序列号是否与机身一致；打开 设置→隐私与安全→分析与改进→分析数据 搜索 panic-full 看是否有重启记录。", "source": "manual" }
-]
+[]
