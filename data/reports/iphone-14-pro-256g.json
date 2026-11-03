@@ -1,0 +1,26 @@
+{
+  "verdict": "wait",
+  "verdict_reason": "数据不足，无法判断当前价格位置及二手行情",
+  "price_position": "历史价摘要暂无数据，无法定位价格分位",
+  "pros": [
+    "Pro 系列影像与性能仍属高端",
+    "256G 容量满足多数用户长期使用",
+    "iOS 生态兼容性与系统支持周期长"
+  ],
+  "cons": [
+    "已停产，新机渠道缺货",
+    "A16 芯片较新款能效比落后",
+    "无 USB-C 接口，拓展性受限"
+  ],
+  "pitfalls": [
+    "低价链接可能为模型机或调包局",
+    "港版/美版保修受限且维修成本高",
+    "扩容机外观正常但易变砖需查序列号"
+  ],
+  "sources": [],
+  "model_id": "iphone-14-pro-256g",
+  "model_title": "Apple iPhone 14 Pro 256G",
+  "generated_at": "2026-11-03T11:36:26+08:00",
+  "generator": "qwen-plus",
+  "models_source": "fallback"
+}

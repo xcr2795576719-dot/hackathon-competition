@@ -1,0 +1,20 @@
+{
+  "verdict": "wait",
+  "verdict_reason": "数据不足，等一个更好的价格点",
+  "price_position": "价格数据缺失，无法定位历史位置",
+  "pros": [
+    "暂无可确认的优点（数据不足）"
+  ],
+  "cons": [
+    "暂无可确认的缺点（数据不足）"
+  ],
+  "pitfalls": [
+    "暂无可确认的坑点（数据不足）"
+  ],
+  "sources": [],
+  "model_id": "iqoo-neo9",
+  "model_title": "iQOO iQOO Neo9",
+  "generated_at": "2026-11-03T11:38:29+08:00",
+  "generator": "qwen-plus",
+  "models_source": "fallback"
+}

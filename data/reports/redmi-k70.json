@@ -1,0 +1,26 @@
+{
+  "verdict": "wait",
+  "verdict_reason": "数据不足，无法判断价格位置与风险，等一个更好的价格点",
+  "price_position": "数据不足，无法定位当前价在历史中的位置",
+  "pros": [
+    "首发价2499元起，性价比高",
+    "Redmi K70为旗舰配置机型",
+    "支持小米生态互联"
+  ],
+  "cons": [
+    "新机现价缺失，无法比价",
+    "历史价摘要缺失",
+    "二手样本摘要缺失"
+  ],
+  "pitfalls": [
+    "无序列号或仅提供IMEI时可能为官换/翻新机",
+    "扩容机外观正常但易变砖，需官网查原始容量",
+    "进水机LCI变红或镜片有雾痕，数月后才显故障"
+  ],
+  "sources": [],
+  "model_id": "redmi-k70",
+  "model_title": "Redmi Redmi K70",
+  "generated_at": "2026-11-03T11:36:39+08:00",
+  "generator": "qwen-plus",
+  "models_source": "fallback"
+}

@@ -1,0 +1,20 @@
+{
+  "verdict": "wait",
+  "verdict_reason": "数据不足，无法判断价格位置与风险，等一个更好的价格点",
+  "price_position": "暂无历史价数据，无法定位价格位置",
+  "pros": [
+    "暂无可确认的优点（数据不足）"
+  ],
+  "cons": [
+    "暂无可确认的缺点（数据不足）"
+  ],
+  "pitfalls": [
+    "需警惕翻新机后盖缝隙不均、残胶或听筒网罩翘起（数据不足但风险存在）"
+  ],
+  "sources": [],
+  "model_id": "huawei-mate-60-pro",
+  "model_title": "华为 Mate 60 Pro",
+  "generated_at": "2026-11-03T11:37:57+08:00",
+  "generator": "qwen-plus",
+  "models_source": "fallback"
+}

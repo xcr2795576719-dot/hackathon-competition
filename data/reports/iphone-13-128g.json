@@ -1,0 +1,26 @@
+{
+  "verdict": "wait",
+  "verdict_reason": "数据不足，无法判断价格位置与风险水平",
+  "price_position": "历史价摘要暂无数据",
+  "pros": [
+    "国行支持国内联保",
+    "iPhone 13 性能仍够用",
+    "128G 容量满足日常需求"
+  ],
+  "cons": [
+    "新机现价缺失",
+    "二手样本摘要缺失",
+    "无法验证是否扩容或官换"
+  ],
+  "pitfalls": [
+    "卖家不提供序列号则无法查原始配置和保修",
+    "型号号码非M开头可能是官换/官翻机",
+    "电池健康度低于80%可能被隐瞒或篡改"
+  ],
+  "sources": [],
+  "model_id": "iphone-13-128g",
+  "model_title": "Apple iPhone 13 128G",
+  "generated_at": "2026-11-03T11:36:22+08:00",
+  "generator": "qwen-plus",
+  "models_source": "fallback"
+}

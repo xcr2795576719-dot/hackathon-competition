@@ -1,0 +1,20 @@
+{
+  "verdict": "wait",
+  "verdict_reason": "数据不足，无法判断价格位置与风险，等一个更好的价格点",
+  "price_position": "数据不足，无历史价与现价信息",
+  "pros": [
+    "暂无可确认的优点（数据不足）"
+  ],
+  "cons": [
+    "暂无可确认的缺点（数据不足）"
+  ],
+  "pitfalls": [
+    "无法验证是否为扩容机，需用序列号查原始配置（数据不足）"
+  ],
+  "sources": [],
+  "model_id": "iphone-15-128g",
+  "model_title": "Apple iPhone 15 128G",
+  "generated_at": "2026-11-03T11:38:03+08:00",
+  "generator": "qwen-plus",
+  "models_source": "fallback"
+}
