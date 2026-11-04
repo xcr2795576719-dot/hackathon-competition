@@ -1,1 +1,26 @@
-export default function FreshnessBadge({capturedAt}:{capturedAt?:string}) { if(!capturedAt)return <span className="text-slate-500">更新时间未知</span>; const date=new Date(capturedAt); if(Number.isNaN(date.getTime()))return <span className="text-slate-500">更新时间未知</span>; const minutes=Math.max(0,Math.floor((Date.now()-date.getTime())/60000)); const h=Math.floor(minutes/60); const label=h<1?`${minutes} 分钟`:h<24?`${h} 小时`:`${Math.floor(h/24)} 天`; return <span className={minutes>48*60?'text-amber-700':'text-slate-500'}>更新于 {label}前{minutes>48*60?' · 数据可能过期':''}</span> }
+export default function FreshnessBadge({
+  capturedAt,
+}: {
+  capturedAt?: string;
+}) {
+  if (!capturedAt) return <span className="text-slate-500">更新时间未知</span>;
+  const date = new Date(capturedAt);
+  if (Number.isNaN(date.getTime()))
+    return <span className="text-slate-500">更新时间未知</span>;
+  const minutes = Math.max(
+    0,
+    Math.floor((Date.now() - date.getTime()) / 60000),
+  );
+  const h = Math.floor(minutes / 60);
+  const label =
+    h < 1
+      ? `${minutes} 分钟`
+      : h < 24
+        ? `${h} 小时`
+        : `${Math.floor(h / 24)} 天`;
+  return (
+    <span className={minutes > 48 * 60 ? "text-amber-700" : "text-slate-500"}>
+      更新于 {label}前{minutes > 48 * 60 ? " · 数据可能过期" : ""}
+    </span>
+  );
+}
