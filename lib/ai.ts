@@ -41,10 +41,19 @@ function providerOf(model: string): { base: string; key: string | undefined; nam
   return { base: QWEN_BASE, key: process.env.DASHSCOPE_KEY, name: "dashscope" };
 }
 
+// 智谱 key 失效时（401/403）在进程内熔断，避免每次视觉请求都先白等一次 GLM 失败。
+let glmAuthFailed = false;
+
 function modelChain(opts: AiOpts): string[] {
-  if (opts.vision) return [GLM_VISION, QWEN_VISION];
-  if (opts.deep) return [GLM_TEXT, QWEN_TEXT];
-  return [QWEN_TEXT, GLM_TEXT];
+  let chain: string[];
+  if (opts.vision) chain = [GLM_VISION, QWEN_VISION];
+  else if (opts.deep) chain = [GLM_TEXT, QWEN_TEXT];
+  else chain = [QWEN_TEXT, GLM_TEXT];
+  if (glmAuthFailed) {
+    const filtered = chain.filter((m) => !m.startsWith("glm"));
+    if (filtered.length) chain = filtered;
+  }
+  return chain;
 }
 
 async function callOnce(
@@ -72,6 +81,7 @@ async function callOnce(
     });
     if (!res.ok) {
       const body = await res.text().catch(() => "");
+      if (model.startsWith("glm") && (res.status === 401 || res.status === 403)) glmAuthFailed = true;
       return { ok: false, error: `HTTP ${res.status} ${body.slice(0, 300)}` };
     }
     const data: any = await res.json();
@@ -115,7 +125,7 @@ export async function aiVision(
         ],
       },
     ],
-    { ...opts, vision: true, json: true, maxTokens: 1024 }
+    { ...opts, vision: true, json: true, maxTokens: 1024, temperature: opts.temperature ?? 0 }
   );
 }
 

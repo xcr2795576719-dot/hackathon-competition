@@ -1,0 +1,41 @@
+{
+  "verdict": "buy",
+  "verdict_reason": "当前价处于近30天第13百分位，二手95新中位价为新机价的77.9%，低于80%买入线。",
+  "price_position": "当前价1649元，处于近30天第13百分位，比中位价低21元",
+  "pros": [
+    "新机价已跌破1700元，较首发直降850元",
+    "二手99新仅1429元，成色好且价格透明",
+    "近7天价格稳定，仅微跌0.5%，无急跌风险"
+  ],
+  "cons": [
+    "新机无保修剩余信息，需自行确认激活状态",
+    "二手样本中8成新以下机型占比超半数，品控参差",
+    "无官方评测摘要，性能与发热等体验缺乏第三方验证"
+  ],
+  "pitfalls": [
+    "收货时用指甲沿中框摸一圈，缝隙不均或残胶提示后盖被换",
+    "必须用序列号查官网原始配置，防扩容机（容量与官网不符即为扩容）",
+    "检查SIM卡托内液触指示器是否变红，变红即为进水机，严禁购买"
+  ],
+  "sources": [
+    {
+      "title": "京东搜索：Redmi K70 12+256",
+      "url": "https://search.jd.com/Search?keyword=Redmi%20K70%2012+256&enc=utf-8"
+    }
+  ],
+  "model_id": "redmi-k70",
+  "model_title": "Redmi Redmi K70 12+256G",
+  "generated_at": "2026-11-03T18:57:12+08:00",
+  "generator": "qwen-plus",
+  "models_source": "models.json",
+  "rule": 2,
+  "rule_text": "当前价处于近30天第13百分位，且二手95新中位价为新机价77.9%（≤80%，v1.1 校准）",
+  "metrics": {
+    "current_price": 1649,
+    "percentile_30d": 13,
+    "used_95_median": 1284,
+    "used_95_ratio_pct": 77.9,
+    "week_change_pct": -0.5,
+    "used_sample_count": 13
+  }
+}
