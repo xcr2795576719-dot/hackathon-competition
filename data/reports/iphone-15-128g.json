@@ -1,0 +1,40 @@
+{
+  "verdict": "wait",
+  "verdict_reason": "新机现价4319元，较首发价低28.0%；暂无二手样本，先等价格稳定。",
+  "price_position": "较首发价低1680元，降幅28.0%，暂无30天历史价对比",
+  "pros": [
+    "首发价5999元，当前新机价4319元，直降1680元",
+    "国行版本可享国内联保，售后有保障",
+    "iPhone 15 128G为主流容量，兼顾存储与性价比"
+  ],
+  "cons": [
+    "无二手样本参考，难评估同配置市场流通价",
+    "未提供序列号、型号号码等关键验机信息"
+  ],
+  "pitfalls": [
+    "未确认是否国行，港版/美版在大陆保修受限且维修成本高",
+    "未查序列号原始配置，无法排除扩容机风险",
+    "未提供电池健康度和型号号码首字母，难辨官换/官翻/零售机"
+  ],
+  "sources": [
+    {
+      "title": "商品页",
+      "url": "https://search.jd.com/Search?keyword=iPhone%2015%20128G&enc=utf-8"
+    }
+  ],
+  "model_id": "iphone-15-128g",
+  "model_title": "Apple iPhone 15 128G",
+  "generated_at": "2026-11-03T18:57:35+08:00",
+  "generator": "qwen-plus",
+  "models_source": "models.json",
+  "rule": 4,
+  "rule_text": "未触发买入条件，等一个更好的价格点",
+  "metrics": {
+    "current_price": 4319,
+    "percentile_30d": null,
+    "used_95_median": null,
+    "used_95_ratio_pct": null,
+    "week_change_pct": null,
+    "used_sample_count": 0
+  }
+}

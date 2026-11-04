@@ -1,0 +1,41 @@
+{
+  "verdict": "buy",
+  "verdict_reason": "当前价处于近30天第13百分位，二手95新中位价为新机价的77.5%，低于80%买入线。",
+  "price_position": "当前价1689元处于近30天第13百分位，比中位价1710元低21元",
+  "pros": [
+    "新机现价1689元，较首发价直降910元",
+    "近7天价格仅微跌0.5%，走势稳定",
+    "99新二手中位价1459元，新机溢价仅230元"
+  ],
+  "cons": [
+    "二手95新中位价1309元，新机溢价达380元",
+    "最低历史价1590元，当前价仍高99元",
+    "8成新二手价1034元，便宜但划痕磕碰风险高"
+  ],
+  "pitfalls": [
+    "收货时用指甲沿中框摸一圈，缝隙不均或残胶即换过后盖",
+    "务必用序列号查官网原始配置，防扩容机变砖",
+    "检查SIM卡槽LCI是否变红、镜头内侧有无水渍，避进水机"
+  ],
+  "sources": [
+    {
+      "title": "京东搜索页",
+      "url": "https://search.jd.com/Search?keyword=一加Ace3&enc=utf-8"
+    }
+  ],
+  "model_id": "oneplus-ace-3",
+  "model_title": "一加 一加 Ace 3 12+256G",
+  "generated_at": "2026-11-03T18:57:27+08:00",
+  "generator": "qwen-plus",
+  "models_source": "models.json",
+  "rule": 2,
+  "rule_text": "当前价处于近30天第13百分位，且二手95新中位价为新机价77.5%（≤80%，v1.1 校准）",
+  "metrics": {
+    "current_price": 1689,
+    "percentile_30d": 13,
+    "used_95_median": 1309,
+    "used_95_ratio_pct": 77.5,
+    "week_change_pct": -0.5,
+    "used_sample_count": 11
+  }
+}

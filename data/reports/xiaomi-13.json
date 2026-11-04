@@ -1,0 +1,40 @@
+{
+  "verdict": "wait",
+  "verdict_reason": "新机现价2199元，较首发价低45.0%；暂无二手样本，先等价格稳定。",
+  "price_position": "较首发价低1800元，降幅45.0%，暂无30天历史价对比",
+  "pros": [
+    "首发价3999元，当前新机价2199元，直降1800元",
+    "8+256G配置属主流高性价比组合",
+    "小米13为旗舰机型，性能与影像仍具实用价值"
+  ],
+  "cons": [
+    "无二手成交样本，缺乏市场流通验证",
+    "未提供序列号、电池健康、外观成色等关键验机信息"
+  ],
+  "pitfalls": [
+    "卖家不提供序列号或查出容量与标称不符，可能是扩容机",
+    "收货时指甲沿中框摸到刮手感，提示后盖被更换过",
+    "SIM卡托内液触指示器变红或镜头有雾痕，说明曾进水"
+  ],
+  "sources": [
+    {
+      "title": "商品页",
+      "url": "https://search.jd.com/Search?keyword=小米13%208+256&enc=utf-8"
+    }
+  ],
+  "model_id": "xiaomi-13",
+  "model_title": "小米 小米 13 8+256G",
+  "generated_at": "2026-11-03T18:58:47+08:00",
+  "generator": "qwen-plus",
+  "models_source": "models.json",
+  "rule": 4,
+  "rule_text": "未触发买入条件，等一个更好的价格点",
+  "metrics": {
+    "current_price": 2199,
+    "percentile_30d": null,
+    "used_95_median": null,
+    "used_95_ratio_pct": null,
+    "week_change_pct": null,
+    "used_sample_count": 0
+  }
+}
