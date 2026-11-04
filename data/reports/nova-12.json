@@ -1,0 +1,40 @@
+{
+  "verdict": "wait",
+  "verdict_reason": "新机现价1699元，较首发价低37.1%；暂无二手样本，先等价格稳定。",
+  "price_position": "新机现价1699元，暂无30天历史价可对比",
+  "pros": [
+    "首发价2699元，当前新机价1699元，直降1000元",
+    "8+256GB配置主流，满足日常使用需求",
+    "华为nova 12为2023年中端主力机型，生态兼容性好"
+  ],
+  "cons": [
+    "无二手交易样本，缺乏市场流通验证",
+    "无评测摘要，实际性能与体验缺乏第三方佐证"
+  ],
+  "pitfalls": [
+    "收货时用指甲沿中框摸一圈，有刮手感可能为换后盖翻新机",
+    "务必用序列号查官网原始容量，防扩容机变砖风险",
+    "检查SIM卡托内液触指示器是否变红，防进水机隐患"
+  ],
+  "sources": [
+    {
+      "title": "商品页",
+      "url": "https://search.jd.com/Search?keyword=华为nova12&enc=utf-8"
+    }
+  ],
+  "model_id": "nova-12",
+  "model_title": "华为 华为 nova 12 8+256G",
+  "generated_at": "2026-11-03T18:58:05+08:00",
+  "generator": "qwen-plus",
+  "models_source": "models.json",
+  "rule": 4,
+  "rule_text": "未触发买入条件，等一个更好的价格点",
+  "metrics": {
+    "current_price": 1699,
+    "percentile_30d": null,
+    "used_95_median": null,
+    "used_95_ratio_pct": null,
+    "week_change_pct": null,
+    "used_sample_count": 0
+  }
+}

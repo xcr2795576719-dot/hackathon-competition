@@ -1,0 +1,41 @@
+{
+  "verdict": "wait",
+  "verdict_reason": "新机现价3719元，较首发价低38.0%；暂无二手样本，先等价格稳定。",
+  "price_position": "较首发价低38.0%，暂无30天历史价对比，无法判断是否达合理低位",
+  "pros": [
+    "12+512G大内存组合满足长期使用",
+    "华为Mate60为旗舰机型，5G与卫星通信功能完整",
+    "新机渠道（京东）售后相对有保障"
+  ],
+  "cons": [
+    "价格降幅大但无历史数据验证是否已触底",
+    "无二手样本参考，难评估市场流通成色水平",
+    "未提供序列号，无法验真伪与原始配置"
+  ],
+  "pitfalls": [
+    "收货时用指甲沿中框摸一圈，有刮手感可能为换后盖翻新机",
+    "必须用序列号官网查原始容量，防扩容机变砖风险",
+    "SIM卡托内液触指示器若变红或镜头内有水渍，属高危进水机"
+  ],
+  "sources": [
+    {
+      "title": "商品页",
+      "url": "https://search.jd.com/Search?keyword=华为Mate60&enc=utf-8"
+    }
+  ],
+  "model_id": "mate-60",
+  "model_title": "华为 华为 Mate 60 12+512G",
+  "generated_at": "2026-11-03T18:57:49+08:00",
+  "generator": "qwen-plus",
+  "models_source": "models.json",
+  "rule": 4,
+  "rule_text": "未触发买入条件，等一个更好的价格点",
+  "metrics": {
+    "current_price": 3719,
+    "percentile_30d": null,
+    "used_95_median": null,
+    "used_95_ratio_pct": null,
+    "week_change_pct": null,
+    "used_sample_count": 0
+  }
+}

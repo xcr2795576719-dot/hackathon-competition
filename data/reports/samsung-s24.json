@@ -1,0 +1,41 @@
+{
+  "verdict": "wait",
+  "verdict_reason": "新机现价3599元，较首发价低40.0%；暂无二手样本，先等价格稳定。",
+  "price_position": "较首发价低2400元，降幅40.0%，暂无30天历史价对比依据",
+  "pros": [
+    "12+256G大内存组合满足主流使用需求",
+    "三星S24为2024年旗舰，性能与影像仍属一线",
+    "京东平台新机渠道，售后相对有保障"
+  ],
+  "cons": [
+    "当前售价3599元缺乏历史价格锚点，难判是否触底",
+    "无二手样本参考，无法评估同配置二手市场溢价水平",
+    "未提供序列号/型号号码等关键验机信息"
+  ],
+  "pitfalls": [
+    "收货时用指甲沿中框摸一圈，缝隙不均或刮手感可能提示后盖被换",
+    "务必索要序列号并官网查询原始容量，防扩容机变砖风险",
+    "检查型号号码首字母，若为N/F/P开头却按全新售卖，属典型误导"
+  ],
+  "sources": [
+    {
+      "title": "商品页",
+      "url": "https://search.jd.com/Search?keyword=三星S24&enc=utf-8"
+    }
+  ],
+  "model_id": "samsung-s24",
+  "model_title": "三星 三星 Galaxy S24 12+256G",
+  "generated_at": "2026-11-03T18:59:56+08:00",
+  "generator": "qwen-plus",
+  "models_source": "models.json",
+  "rule": 4,
+  "rule_text": "未触发买入条件，等一个更好的价格点",
+  "metrics": {
+    "current_price": 3599,
+    "percentile_30d": null,
+    "used_95_median": null,
+    "used_95_ratio_pct": null,
+    "week_change_pct": null,
+    "used_sample_count": 0
+  }
+}
