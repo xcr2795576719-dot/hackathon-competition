@@ -1,41 +1,44 @@
 {
   "verdict": "wait",
-  "verdict_reason": "新机现价3599元，较首发价低40.0%；暂无二手样本，先等价格稳定。",
-  "price_position": "较首发价低2400元，降幅40.0%，暂无30天历史价对比依据",
+  "verdict_reason": "二手95新价为新机价的71.3%，但当前价第40百分位，不在第30百分位以下，建议等更低点。",
+  "price_position": "当前价2770元，低于30天中位价2778元8元，位于第40百分位",
   "pros": [
-    "12+256G大内存组合满足主流使用需求",
-    "三星S24为2024年旗舰，性能与影像仍属一线",
-    "京东平台新机渠道，售后相对有保障"
+    "新机现价仅2770元，较首发价5999元直降3229元",
+    "12+256G大内存组合，满足长期使用与AI应用需求",
+    "骁龙8 Gen3旗舰芯片，性能仍属安卓第一梯队"
   ],
   "cons": [
-    "当前售价3599元缺乏历史价格锚点，难判是否触底",
-    "无二手样本参考，无法评估同配置二手市场溢价水平",
-    "未提供序列号/型号号码等关键验机信息"
+    "近7天价格微涨0.4%，短期无明显下行趋势",
+    "二手99新中位价2144元，新机溢价约29%",
+    "同配置美版二手已低至1533元，国行新机性价比偏弱"
   ],
   "pitfalls": [
-    "收货时用指甲沿中框摸一圈，缝隙不均或刮手感可能提示后盖被换",
-    "务必索要序列号并官网查询原始容量，防扩容机变砖风险",
-    "检查型号号码首字母，若为N/F/P开头却按全新售卖，属典型误导"
+    "收货时用指甲沿中框摸一圈，缝隙不均或残胶提示后盖被换",
+    "务必用序列号查官网原始配置，防扩容机（容量与官网不符即风险）",
+    "检查SIM卡托内液触指示器是否变红，变红即进水机不可购"
   ],
   "sources": [
     {
-      "title": "商品页",
+      "title": "京东搜索页：三星S24",
       "url": "https://search.jd.com/Search?keyword=三星S24&enc=utf-8"
     }
   ],
   "model_id": "samsung-s24",
   "model_title": "三星 三星 Galaxy S24 12+256G",
-  "generated_at": "2026-11-03T18:59:56+08:00",
+  "generated_at": "2026-11-04T20:13:48+08:00",
   "generator": "qwen-plus",
   "models_source": "models.json",
   "rule": 4,
   "rule_text": "未触发买入条件，等一个更好的价格点",
+  "data_source": "manual",
   "metrics": {
-    "current_price": 3599,
-    "percentile_30d": null,
-    "used_95_median": null,
-    "used_95_ratio_pct": null,
-    "week_change_pct": null,
-    "used_sample_count": 0
+    "current_price": 2770,
+    "price_source": "manual",
+    "percentile_30d": 40,
+    "used_95_median": 1974,
+    "used_95_ratio_pct": 71.3,
+    "week_change_pct": 0.4,
+    "used_sample_count": 117,
+    "severe_sample_share": 0.0
   }
 }

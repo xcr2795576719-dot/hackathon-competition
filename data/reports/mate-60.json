@@ -1,41 +1,43 @@
 {
-  "verdict": "wait",
-  "verdict_reason": "新机现价3719元，较首发价低38.0%；暂无二手样本，先等价格稳定。",
-  "price_position": "较首发价低38.0%，暂无30天历史价对比，无法判断是否达合理低位",
+  "verdict": "buy",
+  "verdict_reason": "当前价处于近30天第10百分位，二手95新中位价为新机价的79.9%，低于80%买入线。",
+  "price_position": "当前价1908元处于近30天第10百分位，比中位价2168元低260元",
   "pros": [
-    "12+512G大内存组合满足长期使用",
-    "华为Mate60为旗舰机型，5G与卫星通信功能完整",
-    "新机渠道（京东）售后相对有保障"
+    "近7天降价12%，价格下行趋势明确",
+    "全网最低价1908元与最高价2168元差260元，议价空间充足"
   ],
   "cons": [
-    "价格降幅大但无历史数据验证是否已触底",
-    "无二手样本参考，难评估市场流通成色水平",
-    "未提供序列号，无法验真伪与原始配置"
+    "电池健康普遍低于85%，9成新样本仅84%",
+    "大修机占比超33%，故障风险高",
+    "屏幕透图、漏液、划痕等显示问题频发"
   ],
   "pitfalls": [
-    "收货时用指甲沿中框摸一圈，有刮手感可能为换后盖翻新机",
-    "必须用序列号官网查原始容量，防扩容机变砖风险",
-    "SIM卡托内液触指示器若变红或镜头内有水渍，属高危进水机"
+    "收货时用指甲沿中框摸一圈，检查后盖缝隙不均或残胶",
+    "务必索要序列号并官网查询原始容量，防扩容机",
+    "抽出SIM卡托查看液触指示器是否变红，确认是否进水"
   ],
   "sources": [
     {
-      "title": "商品页",
+      "title": "京东搜索页",
       "url": "https://search.jd.com/Search?keyword=华为Mate60&enc=utf-8"
     }
   ],
   "model_id": "mate-60",
   "model_title": "华为 华为 Mate 60 12+512G",
-  "generated_at": "2026-11-03T18:57:49+08:00",
+  "generated_at": "2026-11-04T20:12:07+08:00",
   "generator": "qwen-plus",
   "models_source": "models.json",
-  "rule": 4,
-  "rule_text": "未触发买入条件，等一个更好的价格点",
+  "rule": 2,
+  "rule_text": "当前价处于近30天第10百分位，且二手95新中位价为新机价79.9%（≤80%，v1.1 校准）",
+  "data_source": "manual",
   "metrics": {
-    "current_price": 3719,
-    "percentile_30d": null,
-    "used_95_median": null,
-    "used_95_ratio_pct": null,
-    "week_change_pct": null,
-    "used_sample_count": 0
+    "current_price": 1908,
+    "price_source": "manual",
+    "percentile_30d": 10,
+    "used_95_median": 1524,
+    "used_95_ratio_pct": 79.9,
+    "week_change_pct": -12.0,
+    "used_sample_count": 90,
+    "severe_sample_share": 0.0
   }
 }

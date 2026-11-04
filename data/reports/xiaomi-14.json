@@ -1,41 +1,45 @@
 {
-  "verdict": "buy",
-  "verdict_reason": "当前价处于近30天第17百分位，二手95新中位价为新机价的77.9%，低于80%买入线。",
-  "price_position": "当前价2919元处于近30天第17百分位，比中位价低18元",
+  "verdict": "wait",
+  "verdict_reason": "该机型现价为演示数据（2368元），暂不判断买入时机；等真实价格补齐。",
+  "price_position": "演示数据：当前价2368元，暂无真实30天历史价可对比",
   "pros": [
-    "新机现价2919元，较首发价直降1380元",
-    "近7天价格微跌0.5%，波动极小，入手时机稳",
-    "30个采样点中最低价仅2825元，下行空间已收窄"
+    "骁龙8 Gen3处理器性能强劲，日常与游戏流畅",
+    "HyperOS 3.0系统支持更新与刷机，自由度高",
+    "6.36英寸2K高刷屏显示细腻，触控与指纹灵敏"
   ],
   "cons": [
-    "二手99新中位价2529元，新机溢价390元",
-    "95新二手价为新机77.9%，折价幅度不够",
-    "无评测摘要，缺乏第三方体验参考"
+    "存在换屏/换后盖玻璃样本，成色一致性差",
+    "部分样本注明‘系统更新已屏蔽’或‘换过外屏玻璃’，隐含功能限制",
+    "现价为演示数据，性价比结论不可用"
   ],
   "pitfalls": [
-    "收货时用指甲沿中框摸一圈，检查后盖与中框缝隙是否均匀、有无残胶",
-    "务必索要序列号并官网查询原始容量，防扩容机变砖",
-    "查验SIM卡托内液触指示器是否为白色，镜片内侧有无水渍雾痕"
+    "收货时用指甲沿中框摸一圈，有刮手感可能换过后盖玻璃",
+    "务必索要序列号查官网原始容量，防扩容机变砖",
+    "检查SIM卡托内液触指示器是否变红，确认是否进水"
   ],
   "sources": [
     {
-      "title": "京东搜索页",
+      "title": "京东搜索：小米14 12+256",
       "url": "https://search.jd.com/Search?keyword=小米14%2012+256&enc=utf-8"
     }
   ],
   "model_id": "xiaomi-14",
   "model_title": "小米 小米 14 12+256G",
-  "generated_at": "2026-11-03T18:56:55+08:00",
+  "generated_at": "2026-11-04T20:11:31+08:00",
   "generator": "qwen-plus",
   "models_source": "models.json",
-  "rule": 2,
-  "rule_text": "当前价处于近30天第17百分位，且二手95新中位价为新机价77.9%（≤80%，v1.1 校准）",
+  "rule": 4,
+  "rule_text": "现价为演示数据，暂不给出买入结论",
+  "data_source": "demo",
+  "demo": true,
   "metrics": {
-    "current_price": 2919,
-    "percentile_30d": 17,
-    "used_95_median": 2274,
-    "used_95_ratio_pct": 77.9,
-    "week_change_pct": -0.5,
-    "used_sample_count": 13
+    "current_price": 2368,
+    "price_source": "demo",
+    "percentile_30d": 50,
+    "used_95_median": 1278,
+    "used_95_ratio_pct": 54.0,
+    "week_change_pct": 0.0,
+    "used_sample_count": 117,
+    "severe_sample_share": 0.0
   }
 }

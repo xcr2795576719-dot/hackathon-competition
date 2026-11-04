@@ -1,40 +1,44 @@
 {
   "verdict": "wait",
-  "verdict_reason": "新机现价2199元，较首发价低45.0%；暂无二手样本，先等价格稳定。",
-  "price_position": "较首发价低1800元，降幅45.0%，暂无30天历史价对比",
+  "verdict_reason": "二手95新价为新机价的70.1%，但当前价第47百分位，不在第30百分位以下，建议等更低点。",
+  "price_position": "当前价1286元，低于30天中位价1305元19元，位于第47百分位",
   "pros": [
-    "首发价3999元，当前新机价2199元，直降1800元",
-    "8+256G配置属主流高性价比组合",
-    "小米13为旗舰机型，性能与影像仍具实用价值"
+    "新机现价仅1286元，较首发价降幅达67.9%",
+    "全系标配第二代骁龙8+徕卡影像+HyperOS",
+    "功能数据状态标注为正常，无异常提示"
   ],
   "cons": [
-    "无二手成交样本，缺乏市场流通验证",
-    "未提供序列号、电池健康、外观成色等关键验机信息"
+    "二手99新中位价1190元，新机仅便宜96元性价比弱",
+    "近7天价格持平，暂无下行趋势信号",
+    "9成新二手均价899元，仅为新机价69.9%"
   ],
   "pitfalls": [
-    "卖家不提供序列号或查出容量与标称不符，可能是扩容机",
-    "收货时指甲沿中框摸到刮手感，提示后盖被更换过",
-    "SIM卡托内液触指示器变红或镜头有雾痕，说明曾进水"
+    "收货时用指甲沿中框摸一圈，防换后盖残胶或缝隙不均",
+    "务必用序列号查官网原始配置，防扩容机改容量",
+    "检查SIM卡托内液触指示器是否变红，防进水隐患"
   ],
   "sources": [
     {
-      "title": "商品页",
+      "title": "京东搜索页",
       "url": "https://search.jd.com/Search?keyword=小米13%208+256&enc=utf-8"
     }
   ],
   "model_id": "xiaomi-13",
   "model_title": "小米 小米 13 8+256G",
-  "generated_at": "2026-11-03T18:58:47+08:00",
+  "generated_at": "2026-11-04T20:12:43+08:00",
   "generator": "qwen-plus",
   "models_source": "models.json",
   "rule": 4,
   "rule_text": "未触发买入条件，等一个更好的价格点",
+  "data_source": "manual",
   "metrics": {
-    "current_price": 2199,
-    "percentile_30d": null,
-    "used_95_median": null,
-    "used_95_ratio_pct": null,
-    "week_change_pct": null,
-    "used_sample_count": 0
+    "current_price": 1286,
+    "price_source": "manual",
+    "percentile_30d": 47,
+    "used_95_median": 902,
+    "used_95_ratio_pct": 70.1,
+    "week_change_pct": 0.0,
+    "used_sample_count": 116,
+    "severe_sample_share": 0.0
   }
 }

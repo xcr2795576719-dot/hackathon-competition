@@ -1,40 +1,44 @@
 {
   "verdict": "wait",
-  "verdict_reason": "新机现价1809元，较首发价低33.0%；暂无二手样本，先等价格稳定。",
-  "price_position": "较首发价低890元，降幅33.0%，暂无30天历史价对比依据",
+  "verdict_reason": "暂无在售数据，无法判断买入时机；等有在售报价后再看。",
+  "price_position": "暂无在售数据",
   "pros": [
-    "12GB+256GB大内存组合满足多任务需求",
-    "vivo S19为新款机型，系统支持周期较长",
-    "京东平台新机渠道，售后有保障"
+    "vivo S19 为新款中端影像旗舰",
+    "12GB+256GB内存组合满足日常多任务",
+    "首发价2699元属同配置机型中偏低定位"
   ],
   "cons": [
-    "无二手样本参考，成色与流通风险未知",
-    "无评测摘要，影像与性能表现无公开验证"
+    "无在售数据，无法验证渠道与成色真实性",
+    "无历史价参考，难判断降价空间或虚标风险",
+    "无二手样本，缺乏流通成色与折价规律依据"
   ],
   "pitfalls": [
     "收货时用指甲沿中框摸一圈，有刮手感可能为换后盖翻新机",
-    "务必用序列号查官网原始配置，防扩容机容量造假",
-    "检查SIM卡托内液触指示器是否变红，确认是否进水"
+    "务必索要序列号并官网查询原始容量，防扩容机变砖",
+    "检查SIM卡托内液触指示器是否变红，确认是否进水机"
   ],
   "sources": [
     {
-      "title": "商品页",
+      "title": "京东搜索页",
       "url": "https://search.jd.com/Search?keyword=vivo%20S19&enc=utf-8"
     }
   ],
   "model_id": "vivo-s19",
   "model_title": "vivo vivo S19 12+256G",
-  "generated_at": "2026-11-03T18:59:35+08:00",
+  "generated_at": "2026-11-04T20:13:31+08:00",
   "generator": "qwen-plus",
   "models_source": "models.json",
   "rule": 4,
-  "rule_text": "未触发买入条件，等一个更好的价格点",
+  "rule_text": "暂无在售数据，等有在售报价后再看",
+  "data_source": "unknown",
   "metrics": {
-    "current_price": 1809,
+    "current_price": null,
+    "price_source": null,
     "percentile_30d": null,
     "used_95_median": null,
     "used_95_ratio_pct": null,
     "week_change_pct": null,
-    "used_sample_count": 0
+    "used_sample_count": 0,
+    "severe_sample_share": 0.0
   }
 }

@@ -1,41 +1,44 @@
 {
   "verdict": "buy",
-  "verdict_reason": "新机价5439元处近30天第13百分位，二手95新仅售4274元，价差超1100元，性价比突出",
-  "price_position": "当前价5439元，低于30天中位价5459元20元，位于第13百分位",
+  "verdict_reason": "当前价处于近30天第3百分位，二手95新中位价为新机价的55.4%，低于80%买入线。",
+  "price_position": "当前价4149元处于近30天第3百分位，比中位价4299元低150元",
   "pros": [
-    "新机现价5439元，较首发价直降4460元",
-    "近7天价格稳定，波动仅-0.2%",
-    "同成色二手99新中位价4739元，新机溢价仅700元"
+    "新机现价4149元，为30天采样最低价",
+    "二手95新中位价2299元，保值率约55.4%",
+    "近7天价格再降3.5%，降价趋势明确"
   ],
   "cons": [
-    "国行保修剩余时间未知，未提供序列号验证信息",
-    "无官方评测数据支撑长期性能表现",
-    "港版/美版可能混入，但商品页未注明版本"
+    "国行保修剩余时间未知，未提供序列号验证",
+    "低价新机链接未说明是否为官翻或官换机",
+    "无官方渠道凭证，无法确认是否为零售机（M开头）"
   ],
   "pitfalls": [
-    "不查序列号原始容量，可能买到扩容机导致升级变砖",
-    "不核对型号号码首字母，可能误收官换机当全新机",
-    "未确认是否国行，港版/美版在大陆维修受限或需自费"
+    "务必用序列号查官网原始容量，防扩容机",
+    "核对型号号码首字母，非M开头不按全新机买",
+    "收货时摸后盖与中框缝隙，防换后盖或屏幕"
   ],
   "sources": [
     {
-      "title": "商品页",
+      "title": "京东搜索页",
       "url": "https://search.jd.com/Search?keyword=iPhone%2014%20Pro%20256G&enc=utf-8"
     }
   ],
   "model_id": "iphone-14-pro-256g",
   "model_title": "Apple iPhone 14 Pro 256G",
-  "generated_at": "2026-11-03T18:56:23+08:00",
+  "generated_at": "2026-11-04T20:11:16+08:00",
   "generator": "qwen-plus",
   "models_source": "models.json",
   "rule": 2,
-  "rule_text": "当前价处于近30天第13百分位，且二手95新中位价为新机价78.6%（≤80%，v1.1 校准）",
+  "rule_text": "当前价处于近30天第3百分位，且二手95新中位价为新机价55.4%（≤80%，v1.1 校准）",
+  "data_source": "manual",
   "metrics": {
-    "current_price": 5439,
-    "percentile_30d": 13,
-    "used_95_median": 4274,
-    "used_95_ratio_pct": 78.6,
-    "week_change_pct": -0.2,
-    "used_sample_count": 14
+    "current_price": 4149,
+    "price_source": "manual",
+    "percentile_30d": 3,
+    "used_95_median": 2299,
+    "used_95_ratio_pct": 55.4,
+    "week_change_pct": -3.5,
+    "used_sample_count": 60,
+    "severe_sample_share": 0.0
   }
 }
