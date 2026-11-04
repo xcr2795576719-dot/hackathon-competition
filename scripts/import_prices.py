@@ -10,7 +10,7 @@
   1. CSV 四列: model_id,date,price,source；source 可省略，省略按 manual
   2. prices_history.json: { "<model_id>": [ {"date","price"}, ... ] }  按日期升序
   3. prices_current.json: { "<model_id>": {"jd","captured_at","source"} }
-     取该机型最新 date 的一行；captured_at = 当天 20:00:00+08:00
+     取该机型最新 date 的一行；captured_at = 实际入库时刻（Asia/Shanghai，+08:00）
   4. 与已有 JSON 深合并，按 date 去重保留最新；重复执行结果不变（幂等）
   5. model_id 不在 models.json / 日期非法 / 价格非正数 -> 写入 data/skipped.csv
   6. 原子写入（tmp + os.replace），中途失败不会写坏文件
@@ -22,6 +22,9 @@ import os
 import sys
 import tempfile
 from datetime import date as _date
+from datetime import datetime, timedelta, timezone
+
+CST = timezone(timedelta(hours=8))
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -135,7 +138,7 @@ def build_current(history, prev_current, sources):
         key = (mid, last["date"])
         current[mid] = {
             "jd": last["price"],
-            "captured_at": f"{last['date']}T20:00:00+08:00",
+            "captured_at": datetime.now(CST).replace(microsecond=0).isoformat(),
             "source": sources.get(key, (current.get(mid) or {}).get("source", "manual")),
         }
     return current
