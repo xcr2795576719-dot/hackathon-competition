@@ -26,5 +26,6 @@ export async function GET(req: NextRequest) {
     models = models.filter((m) => m.brand.toLowerCase() === b);
   }
 
-  return NextResponse.json({ count: models.length, items: models });
+  // 裁决（审查清单 v2 §二.1）：返回裸数组，不再包装 {count, items}
+  return NextResponse.json(models);
 }

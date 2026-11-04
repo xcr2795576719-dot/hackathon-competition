@@ -71,8 +71,9 @@ export async function POST(_req: Request, ctx: { params: { model: string } }) {
   }
 
   // 规则判定（与 E 的买入线一致：二手95新中位价 ≤ 新机价 80% → buy）
+  // 裁决（审查清单 v2 §二.2）：verdict 枚举 buy | wait | avoid（caution 改名 wait）
   let rule = 0;
-  let verdict: "buy" | "caution" | "avoid" = "caution";
+  let verdict: "buy" | "wait" | "avoid" = "wait";
   let ruleText = "";
   if (used95Ratio != null) {
     if (used95Ratio <= 80) {
@@ -81,7 +82,7 @@ export async function POST(_req: Request, ctx: { params: { model: string } }) {
       ruleText = `二手95新中位价为新机价的 ${used95Ratio.toFixed(1)}%（≤80%，买入线）`;
     } else if (used95Ratio <= 95) {
       rule = 1;
-      verdict = "caution";
+      verdict = "wait";
       ruleText = `二手95新中位价为新机价的 ${used95Ratio.toFixed(1)}%（80%~95%，观望）`;
     } else {
       rule = 0;
