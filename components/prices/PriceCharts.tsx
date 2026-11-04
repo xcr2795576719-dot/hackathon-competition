@@ -1,0 +1,111 @@
+"use client";
+import ReactECharts from "echarts-for-react";
+import type { Point, Sample } from "./types";
+const grades = ["99新", "95新", "9成新", "8成新", "大修"];
+const colors = ["#16a34a", "#2563eb", "#ca8a04", "#ea580c", "#dc2626"];
+export default function PriceCharts({
+  history,
+  samples,
+}: {
+  history: Point[];
+  samples: Sample[];
+}) {
+  const valid = samples.filter(
+    (s) =>
+      Number.isFinite(Number(s.price)) &&
+      Number(s.price) > 0 &&
+      (grades.includes(s.grade) || s.grade === "大修或功能缺陷"),
+  );
+  const sorted = valid.map((s) => Number(s.price)).sort((a, b) => a - b);
+  const mid = sorted.length
+    ? (sorted[Math.floor((sorted.length - 1) / 2)] +
+        sorted[Math.floor(sorted.length / 2)]) /
+      2
+    : null;
+  const priceOption = {
+    tooltip: { trigger: "axis" },
+    grid: { left: 65, right: 20, top: 30, bottom: 40 },
+    xAxis: {
+      type: "category",
+      data: history.map((p) => p.date),
+      axisLabel: { hideOverlap: true },
+    },
+    yAxis: { type: "value", scale: true, axisLabel: { formatter: "¥{value}" } },
+    series: [
+      {
+        type: "line",
+        smooth: true,
+        data: history.map((p) => p.price),
+        lineStyle: { color: "#2563eb" },
+        itemStyle: { color: "#2563eb" },
+        areaStyle: { color: "rgba(37,99,235,.08)" },
+      },
+    ],
+  };
+  const scatterOption = {
+    tooltip: {
+      trigger: "item",
+      formatter: (p: { seriesName: string; value: [number, number] }) =>
+        `${p.seriesName}<br/>¥${p.value[1]}`,
+    },
+    legend: { bottom: 0 },
+    grid: { left: 65, right: 20, top: 30, bottom: 65 },
+    xAxis: { type: "value", name: "样本", min: 0, axisLabel: { show: false } },
+    yAxis: { type: "value", scale: true, axisLabel: { formatter: "¥{value}" } },
+    series: grades.map((grade, i) => ({
+      name: grade,
+      type: "scatter",
+      itemStyle: { color: colors[i] },
+      data: valid
+        .map((s, index) => ({ s, index }))
+        .filter(
+          ({ s }) =>
+            s.grade === grade ||
+            (grade === "大修" && s.grade === "大修或功能缺陷"),
+        )
+        .map(({ s, index }) => [index + 1, Number(s.price)]),
+      ...(i === 0 && mid !== null
+        ? {
+            markLine: {
+              symbol: "none",
+              label: { formatter: `中位价 ¥${mid}` },
+              data: [{ yAxis: mid }],
+            },
+          }
+        : {}),
+    })),
+  };
+  return (
+    <div className="mt-6 grid gap-4 lg:grid-cols-2">
+      <section className="rounded-xl border border-slate-200 p-5">
+        <h2 className="font-semibold">新机历史价格</h2>
+        {history.length ? (
+          <ReactECharts option={priceOption} style={{ height: 300 }} notMerge />
+        ) : (
+          <p className="py-16 text-center text-sm text-slate-500">
+            历史价格收集中
+          </p>
+        )}
+      </section>
+      <section className="rounded-xl border border-slate-200 p-5">
+        <h2 className="font-semibold">二手在售价格分布</h2>
+        {valid.length ? (
+          <>
+            <p className="mt-1 text-xs text-slate-500">
+              {valid.length} 条样本 · 中位价 ¥{mid}
+            </p>
+            <ReactECharts
+              option={scatterOption}
+              style={{ height: 300 }}
+              notMerge
+            />
+          </>
+        ) : (
+          <p className="py-16 text-center text-sm text-slate-500">
+            二手样本收集中
+          </p>
+        )}
+      </section>
+    </div>
+  );
+}
