@@ -108,9 +108,12 @@ export default function VerifyPage() {
         );
         return;
       }
-      if (!data || !data.model_guess) throw new Error("invalid payload");
+      // C 旧版兼容：早期 /api/verify 把结果包在 result 里，现返回扁平结构。
+      // 保留这层兜底是为了兼容旧版，正常路径走 data 本身，防止后人误读成"一直有包装"
+      const payload = data?.result ?? data;
+      if (!payload || !payload.model_guess) throw new Error("invalid payload");
 
-      setResult(data as VerifyResult);
+      setResult(payload as VerifyResult);
       setIsMock(false);
       setStatus("done");
     } catch {

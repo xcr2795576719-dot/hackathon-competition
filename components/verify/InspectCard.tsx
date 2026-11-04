@@ -76,12 +76,14 @@ export default function InspectCard({ result, isMock }: InspectCardProps) {
     // 契约：POST /api/estimate { model_id, grade, answers } → { low, mid, high, basis[] }
     // 验机卡只有成色分，answers 暂空（完整问卷版后续接）
     const grade = conditionGrade(result.condition_score);
+    // 优先用后端回填的定稿 model_id（如 iphone-13-128g）；缺失时按机型名粗略推导
+    const modelId = result.model_id || guessModelId(result.model_guess);
     try {
       const res = await fetch("/api/estimate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model_id: guessModelId(result.model_guess),
+          model_id: modelId,
           grade,
           answers: {},
         }),

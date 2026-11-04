@@ -22,6 +22,8 @@ export interface VerifyResult {
   /** 成色分 0-100 */
   condition_score: number;
   notes: string;
+  /** 后端后处理回填的定稿机型 id（如 iphone-13-128g），有则优先用于估价 */
+  model_id?: string;
 }
 
 /** 九宫格 9 格顺序（与 CSS grid 排列一致：上左→上中→上右→中左...） */
