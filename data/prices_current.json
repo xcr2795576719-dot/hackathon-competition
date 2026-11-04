@@ -1,32 +1,67 @@
 {
   "xiaomi-14": {
     "jd": 2368,
-    "captured_at": "2026-11-03T20:00:00+08:00",
-    "source": "manual"
+    "captured_at": "2026-11-04T17:37:20+08:00",
+    "source": "demo"
   },
   "redmi-k70": {
     "jd": 2368,
-    "captured_at": "2026-11-03T20:00:00+08:00",
-    "source": "manual"
+    "captured_at": "2026-11-04T17:37:20+08:00",
+    "source": "demo"
   },
   "oneplus-ace-3": {
     "jd": 2368,
-    "captured_at": "2026-11-03T20:00:00+08:00",
-    "source": "manual"
+    "captured_at": "2026-11-04T17:37:20+08:00",
+    "source": "demo"
   },
   "mate-60-pro": {
     "jd": 3578,
-    "captured_at": "2026-11-03T20:00:00+08:00",
+    "captured_at": "2026-11-04T17:37:20+08:00",
     "source": "manual"
   },
   "iphone-13-128g": {
     "jd": 2438,
-    "captured_at": "2026-11-03T20:00:00+08:00",
+    "captured_at": "2026-11-04T17:37:20+08:00",
     "source": "manual"
   },
   "iphone-14-pro-256g": {
     "jd": 4149,
-    "captured_at": "2026-11-03T20:00:00+08:00",
+    "captured_at": "2026-11-04T17:37:20+08:00",
+    "source": "manual"
+  },
+  "iphone-15-128g": {
+    "jd": 3201,
+    "captured_at": "2026-11-04T17:37:20+08:00",
+    "source": "manual"
+  },
+  "mate-60": {
+    "jd": 1908,
+    "captured_at": "2026-11-04T17:37:20+08:00",
+    "source": "manual"
+  },
+  "nova-12": {
+    "jd": 1798,
+    "captured_at": "2026-11-04T17:37:20+08:00",
+    "source": "manual"
+  },
+  "huawei-p60": {
+    "jd": 2978,
+    "captured_at": "2026-11-04T17:37:20+08:00",
+    "source": "manual"
+  },
+  "xiaomi-13": {
+    "jd": 1286,
+    "captured_at": "2026-11-04T17:37:20+08:00",
+    "source": "manual"
+  },
+  "redmi-note-13-pro": {
+    "jd": 1568,
+    "captured_at": "2026-11-04T17:37:20+08:00",
+    "source": "manual"
+  },
+  "samsung-s24": {
+    "jd": 2770,
+    "captured_at": "2026-11-04T17:37:20+08:00",
     "source": "manual"
   }
 }
