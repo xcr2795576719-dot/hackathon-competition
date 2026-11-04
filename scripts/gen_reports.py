@@ -165,6 +165,7 @@ def compute_metrics(model, prices_current, prices_history, used_samples):
     mid = model["id"]
     cur = prices_current.get(mid) if isinstance(prices_current, dict) else None
     jd = cur.get("jd") if isinstance(cur, dict) else None
+    source = cur.get("source") if isinstance(cur, dict) else None
 
     hist = prices_history.get(mid) if isinstance(prices_history, dict) else None
     hist = sorted(hist or [], key=lambda h: h.get("date", "")) if isinstance(hist, list) else []
@@ -175,6 +176,7 @@ def compute_metrics(model, prices_current, prices_history, used_samples):
     g95 = [s["price"] for s in mine if s.get("grade") == "95新" and s.get("price")]
     m95 = median(g95)
     ratio = round(m95 / jd * 100, 1) if m95 and jd else None
+    severe_share = round(len(severe_samples(mine)) / len(mine), 3) if mine else 0.0
 
     week_change = None
     if len(prices) >= 8 and prices[-8]:
@@ -182,6 +184,7 @@ def compute_metrics(model, prices_current, prices_history, used_samples):
 
     return {
         "jd": jd,
+        "source": source,
         "launch": model.get("launch_price"),
         "prices": prices,
         "pct": pct,
@@ -189,26 +192,36 @@ def compute_metrics(model, prices_current, prices_history, used_samples):
         "ratio": ratio,
         "week_change": week_change,
         "samples": mine,
+        "severe_sample_share": severe_share,
     }
 
 
 def severe_samples(samples):
-    # 只看卖家描述，不看标题里的成色档位（标题常带「大修或功能缺陷」字样，会把所有机型都误判成 avoid）
-    pat = re.compile(r"进水|大修|扩容|翻新|监管|有锁|主板维修")
+    # 只把「卖家描述」里的进水/扩容/翻新等算规则 1 的严重风险；
+    # 成色档位「大修」只写进 cons/pitfalls，不单独把整款机型判 avoid。
+    # 「无进水/无拆修」这类否定句不算。
+    pat = re.compile(r"(?<!无)(进水|大修|扩容|翻新|监管|有锁|主板维修)")
     return [s for s in samples if pat.search(str(s.get("condition_text", "")))]
 
 
 def pick_verdict(metrics, picked_knowledge):
     """四条规则，先命中先定。返回 (verdict, rule_no, rule_text)。"""
     pct, ratio, week = metrics["pct"], metrics["ratio"], metrics["week_change"]
+    # 没有现价就没有「买不买」的判断基础，不能让模型自己编价格位置。
+    if metrics.get("jd") is None:
+        return "wait", 4, "暂无在售数据，等有在售报价后再看"
+    # 演示价不能拿来判断买不买：D 对三款 T1 标了 source=demo，报告必须明示并给 wait。
+    if metrics.get("source") == "demo":
+        return "wait", 4, "现价为演示数据，暂不给出买入结论"
     severe = severe_samples(metrics["samples"])
     severe_kb = [
         k for k in picked_knowledge
         if re.search(r"进水|大修|扩容|翻新|监管|有锁", str(k.get("title", "")) + str(k.get("content", "")))
     ]
+    severe_share = (len(severe) / len(metrics["samples"])) if metrics["samples"] else 0.0
 
-    if severe and severe_kb:
-        return "avoid", 1, "二手样本出现进水/大修/扩容/翻新描述，且避坑知识命中同类风险"
+    if severe and severe_kb and severe_share >= 0.2:
+        return "avoid", 1, f"二手样本中严重风险描述占比{round(severe_share * 100)}%（≥20%），且知识库命中同类风险"
 
     if pct is not None and ratio is not None and pct <= 30 and ratio <= BUY_RATIO:
         return "buy", 2, f"当前价处于近30天第{pct}百分位，且二手95新中位价为新机价{ratio}%（≤{BUY_RATIO:.0f}%，v1.1 校准）"
@@ -228,10 +241,15 @@ def make_reason(verdict, rule_no, metrics, rule_text):
     """给模型一个可读的结论提示；模型写得好就用模型的，写偏了用它兜底。"""
     pct, ratio, week, jd = metrics["pct"], metrics["ratio"], metrics["week_change"], metrics["jd"]
     launch = metrics.get("launch")
+    if jd is None:
+        return "暂无在售数据，无法判断买入时机；等有在售报价后再看。"
+    if metrics.get("source") == "demo":
+        return f"该机型现价为演示数据（{jd}元），暂不判断买入时机；等真实价格补齐。"
     if verdict == "buy" and pct is not None and ratio is not None:
         return f"当前价处于近30天第{pct}百分位，二手95新中位价为新机价的{ratio}%，低于{BUY_RATIO:.0f}%买入线。"
     if verdict == "avoid":
-        return "二手样本里出现进水/大修/扩容/翻新描述，这类机器后续故障率高，建议避开。"
+        share = round(float(metrics.get("severe_sample_share") or 0) * 100)
+        return f"二手样本中严重风险描述占比{share}%，这类机器后续故障率高，建议避开。"
     if verdict == "wait" and rule_no == 3:
         bits = []
         if pct is not None:
@@ -239,8 +257,19 @@ def make_reason(verdict, rule_no, metrics, rule_text):
         if week is not None:
             bits.append(f"近7天{week:+.1f}%")
         return "，".join(bits) + "，价格偏高，建议等降价。"
-    if verdict == "wait" and ratio is not None:
-        return f"二手95新中位价为新机价的{ratio}%，高于{BUY_RATIO:.0f}%买入线，建议再等。"
+    if verdict == "wait" and rule_no == 4:
+        if pct is not None and ratio is not None:
+            if pct > 30 and ratio <= BUY_RATIO:
+                return f"二手95新价为新机价的{ratio}%，但当前价第{pct}百分位，不在第30百分位以下，建议等更低点。"
+            if pct <= 30 and ratio > BUY_RATIO:
+                return f"当前价第{pct}百分位，但二手95新价仍为新机价{ratio}%，高于{BUY_RATIO:.0f}%买入线，建议再等。"
+            return f"当前价第{pct}百分位，二手95新价{ratio}%，两条买入条件都未满足，建议再等。"
+        if pct is not None and ratio is None:
+            if not metrics.get("samples"):
+                return f"当前价第{pct}百分位，但暂无二手样本，暂不判断二手折价，建议再等。"
+            return f"当前价第{pct}百分位，但95新有效样本不足，暂不判断二手折价，建议再等。"
+        if ratio is not None:
+            return f"二手95新价为新机价的{ratio}%，高于{BUY_RATIO:.0f}%买入线，建议再等。"
     if jd and launch:
         off = round((1 - jd / launch) * 100, 1)
         return f"新机现价{jd}元，较首发价低{off}%；暂无二手样本，先等价格稳定。"
@@ -249,6 +278,10 @@ def make_reason(verdict, rule_no, metrics, rule_text):
 
 def make_price_position(metrics):
     pct, prices, jd = metrics["pct"], metrics["prices"], metrics["jd"]
+    if jd is None:
+        return "暂无在售数据"
+    if metrics.get("source") == "demo":
+        return f"演示数据：当前价{jd}元，暂无真实30天历史价可对比"
     if pct is not None and prices:
         return f"近30天第{pct}百分位，中位价{median(prices)}元，当前价{jd}元"
     if jd:
@@ -282,11 +315,23 @@ def build_context(model, metrics, picked_knowledge):
     lines = [f"【机型】{title}，首发价 {yuan(launch)}"]
 
     jd = metrics["jd"]
+    if metrics.get("source") == "demo":
+        status = "演示价（source=demo）"
+    elif jd is None:
+        status = "暂无在售"
+    elif not metrics.get("samples"):
+        status = "暂无二手样本"
+    else:
+        status = "正常"
+    lines.append(f"【数据状态】{status}")
     if jd:
         cur = metrics.get("cur") or {}
         lines.append(f"【新机现价】{yuan(jd)}（{cur.get('captured_at', '时间未知')} 采集，来源 {cur.get('source', '未知')}）")
     else:
         lines.append("【新机现价】暂无数据")
+
+    if metrics.get("source") == "demo":
+        lines.append("【数据提示】该机型现价为演示数据，不要据此给出买入/性价比结论；pros/cons 不要引用具体价格。")
 
     jd_url = model.get("jd_url")
     lines.append(f"【商品页】{jd_url}" if jd_url else "【商品页】暂无数据")
@@ -406,6 +451,18 @@ def trim_reason(text, limit=60):
 BAD_PLACEHOLDER = re.compile(r"数据不足|暂无可确认|暂无数据|无法判断|缺少数据")
 
 
+def clean_price_claims(arr, jd, m95):
+    """模型经常把「新机价 / 二手价」说反（例：1908 元说成“跌破二手 1524 元”）。
+    新机价一定高于二手 95新中位价（否则不是正常二手行情），按方向删掉反话。"""
+    if not jd or not m95:
+        return arr
+    if jd > m95:
+        bad = re.compile(r"跌破二手|低于二手|二手价高于新机|价差倒挂|新机价低于二手|二手.*高于新机")
+    else:
+        bad = re.compile(r"新机溢价|新机价高于二手|二手.*低于新机")
+    return [x for x in arr if not bad.search(x)]
+
+
 def validate(report, context_text, expected_verdict, expected_reason, metrics, expected_pp, rule_no):
     """返回 (problems, report)。尽量把模型输出纠到可直接上前的状态。"""
     problems = []
@@ -423,28 +480,40 @@ def validate(report, context_text, expected_verdict, expected_reason, metrics, e
             v = []
         v = [str(x).strip() for x in v if str(x).strip()]
         v = [x for x in v if not BAD_PLACEHOLDER.search(x)]
+        if field in ("pros", "cons"):
+            v = clean_price_claims(v, metrics.get("jd"), metrics.get("m95"))
         report[field] = v[:4]
         if len(report[field]) < 2:
             problems.append(f"{field} 少于 2 条")
 
+    # 演示价不能用来写“新机溢价/折价”类 cons，否则会出现“2368 元新机溢价 1500 元”这种假对比。
+    if metrics.get("source") == "demo":
+        pricey = re.compile(r"元|溢价|折价|现价|新机价|二手.*价|降价|涨价")
+        report["cons"] = [x for x in report["cons"] if not pricey.search(x)]
+        for item in ("现价为演示数据，性价比结论不可用", "需等真实价格补齐后再判断买入时机"):
+            if len(report["cons"]) >= 3:
+                break
+            if item not in report["cons"]:
+                report["cons"].append(item)
+
     reason = trim_reason(report.get("verdict_reason"))
-    # 规则 4 的 wait 理由必须点明 80% 买入线；模型爱把「二手价/新机价」说成「折价」，
-    # 这个数学歧义会让答辩现场被追问，直接用脚本算好的结论句。
-    if expected_verdict == "wait" and rule_no == 4:
-        report["verdict_reason"] = expected_reason
-    elif not reason_ok(reason, expected_verdict, metrics):
-        problems.append("verdict_reason 不够具体或逻辑与结论不一致")
-        report["verdict_reason"] = expected_reason
-    else:
-        report["verdict_reason"] = reason
+    # 结论句统一由脚本生成：模型爱把「新机价/二手价」说反，buy 的
+    # 「新机价远低于二手 95新」这类错话会直接被答辩抓住。
+    report["verdict_reason"] = expected_reason
 
     # price_position 至少含数字；没有历史价时不许编「第 N 百分位」
     pp = str(report.get("price_position") or "").strip()
-    bad_pp = not re.search(r"\d", pp)
-    if metrics["pct"] is None and "百分位" in pp:
-        bad_pp = True
-    if metrics["pct"] is not None and "百分位" not in pp and "历史" not in pp:
-        bad_pp = True
+    if metrics.get("jd") is None:
+        pp = expected_pp
+        bad_pp = False
+    else:
+        if metrics.get("source") == "demo":
+            pp = expected_pp
+        bad_pp = not re.search(r"\d", pp)
+        if metrics["pct"] is None and "百分位" in pp:
+            bad_pp = True
+        if metrics["pct"] is not None and "百分位" not in pp and "历史" not in pp:
+            bad_pp = True
     if bad_pp:
         problems.append("price_position 与数据不符")
         pp = expected_pp
@@ -623,13 +692,18 @@ def main():
         report["models_source"] = models_source
         report["rule"] = rule_no
         report["rule_text"] = rule_text
+        report["data_source"] = metrics.get("source") or "unknown"
+        if metrics.get("source") == "demo":
+            report["demo"] = True
         report["metrics"] = {
             "current_price": metrics["jd"],
+            "price_source": metrics.get("source"),
             "percentile_30d": metrics["pct"],
             "used_95_median": metrics["m95"],
             "used_95_ratio_pct": metrics["ratio"],
             "week_change_pct": metrics["week_change"],
             "used_sample_count": len(metrics["samples"]),
+            "severe_sample_share": metrics.get("severe_sample_share"),
         }
         out_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"[{i}/{len(targets)}] ✅ {mid} → {report.get('verdict')}  {report.get('verdict_reason', '')[:40]}")

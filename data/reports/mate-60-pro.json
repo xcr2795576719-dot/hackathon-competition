@@ -1,41 +1,44 @@
 {
-  "verdict": "buy",
-  "verdict_reason": "当前价处于近30天第13百分位，二手95新中位价为新机价的80.0%，低于80%买入线。",
-  "price_position": "当前价5039元，处于近30天第13百分位，比中位价低15元",
+  "verdict": "wait",
+  "verdict_reason": "当前价第93百分位，近7天+0.0%，价格偏高，建议等降价。",
+  "price_position": "当前价3578元，位于近30天价格分布第93百分位，高于中位价0元",
   "pros": [
-    "新机现价5039元，较首发价直降1960元",
-    "近7天价格仅微跌0.2%，走势稳定",
-    "二手99新中位价4359元，新机溢价仅15.5%"
+    "新机现价3578元，较首发价直降3421元",
+    "配置为顶配12+512G，存储充裕",
+    "HarmonyOS系统流畅，麒麟9000S性能仍够用"
   ],
   "cons": [
-    "二手95新已低至4029元，新机溢价明显",
-    "最低历史价4940元，当前价高99元",
-    "二手8成新仅3029元，差价超2000元"
+    "近7天价格无变动，缺乏短期降价信号",
+    "二手95新中位价仅1580元，新机溢价超1998元",
+    "当前价高于历史最低价3498元80元"
   ],
   "pitfalls": [
-    "收货时用指甲沿中框摸一圈，有刮手感可能换过后盖玻璃",
-    "必须用序列号查官网原始配置，防扩容机变砖",
-    "检查SIM卡托内液触指示器是否变红，防进水隐患"
+    "收货时用指甲沿中框摸一圈，防换后盖玻璃或残胶",
+    "务必用序列号查官网原始配置，防扩容机",
+    "检查SIM卡托内液触指示器是否变红，防进水机"
   ],
   "sources": [
     {
-      "title": "华为Mate60Pro 搜索页",
+      "title": "京东搜索页",
       "url": "https://search.jd.com/Search?keyword=华为Mate60Pro&enc=utf-8"
     }
   ],
   "model_id": "mate-60-pro",
   "model_title": "华为 华为 Mate 60 Pro 12+512G",
-  "generated_at": "2026-11-03T18:56:38+08:00",
+  "generated_at": "2026-11-04T20:11:23+08:00",
   "generator": "qwen-plus",
   "models_source": "models.json",
-  "rule": 2,
-  "rule_text": "当前价处于近30天第13百分位，且二手95新中位价为新机价80.0%（≤80%，v1.1 校准）",
+  "rule": 3,
+  "rule_text": "当前价处于近30天第93百分位，近7天变化+0.0%，价格偏高",
+  "data_source": "manual",
   "metrics": {
-    "current_price": 5039,
-    "percentile_30d": 13,
-    "used_95_median": 4029,
-    "used_95_ratio_pct": 80.0,
-    "week_change_pct": -0.2,
-    "used_sample_count": 14
+    "current_price": 3578,
+    "price_source": "manual",
+    "percentile_30d": 93,
+    "used_95_median": 1580,
+    "used_95_ratio_pct": 44.2,
+    "week_change_pct": 0.0,
+    "used_sample_count": 119,
+    "severe_sample_share": 0.0
   }
 }

@@ -1,40 +1,44 @@
 {
   "verdict": "wait",
-  "verdict_reason": "新机现价1499元，较首发价低40.0%；暂无二手样本，先等价格稳定。",
-  "price_position": "较首发价低1000元，降幅40.0%，暂无30天历史价对比依据",
+  "verdict_reason": "暂无在售数据，无法判断买入时机；等有在售报价后再看。",
+  "price_position": "暂无在售数据",
   "pros": [
-    "首发价2499元，当前新机价1499元，直降1000元",
-    "12+256G大内存组合，满足主流多任务与存储需求",
-    "荣耀100为2023年中高端机型，影像与曲面屏属同代优势"
+    "首发价2499元起，12+256G内存组合适合多任务场景",
+    "荣耀100为2023年中高端机型，影像与曲面屏属同代主流配置",
+    "官方渠道曾售，非小众贴牌机，售后支持基础有保障"
   ],
   "cons": [
-    "无二手样本参考，缺乏成色、流通价与折旧率验证",
-    "未提供序列号或IMEI，无法验证是否扩容/官换/进水等核心风险"
+    "无在售数据，无法验证当前市场流通性与价格稳定性",
+    "无二手样本摘要，缺乏成色、折价率、故障率等实操参考",
+    "无历史价摘要，难以判断是否存在隐性贬值或清库存风险"
   ],
   "pitfalls": [
-    "收货时用指甲沿中框摸一圈，有刮手感可能为换后盖翻新机",
-    "必须用序列号查官网原始配置，容量不符即为扩容机",
-    "SIM卡托内液触指示器若变红，或镜头内有雾痕，即为进水机"
+    "收货时用指甲沿中框摸一圈，有刮手感可能后盖被换过",
+    "务必用序列号查官网原始容量，防扩容机刷写大容量显示",
+    "检查SIM卡托内液触指示器是否变红，避免购入隐患进水机"
   ],
   "sources": [
     {
-      "title": "商品页",
+      "title": "京东搜索页",
       "url": "https://search.jd.com/Search?keyword=荣耀100&enc=utf-8"
     }
   ],
   "model_id": "honor-100",
   "model_title": "荣耀 荣耀 100 12+256G",
-  "generated_at": "2026-11-03T18:58:19+08:00",
+  "generated_at": "2026-11-04T20:12:29+08:00",
   "generator": "qwen-plus",
   "models_source": "models.json",
   "rule": 4,
-  "rule_text": "未触发买入条件，等一个更好的价格点",
+  "rule_text": "暂无在售数据，等有在售报价后再看",
+  "data_source": "unknown",
   "metrics": {
-    "current_price": 1499,
+    "current_price": null,
+    "price_source": null,
     "percentile_30d": null,
     "used_95_median": null,
     "used_95_ratio_pct": null,
     "week_change_pct": null,
-    "used_sample_count": 0
+    "used_sample_count": 0,
+    "severe_sample_share": 0.0
   }
 }
