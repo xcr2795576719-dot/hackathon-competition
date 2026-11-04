@@ -1,7 +1,10 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { Model } from "./types";
+import Reveal from "@/components/motion/Reveal";
+
 const tabs = [
   ["全部", []],
   ["Apple", ["apple"]],
@@ -13,6 +16,7 @@ const tabs = [
   ["vivo / iQOO", ["vivo", "iqoo"]],
   ["三星", ["三星", "samsung"]],
 ] as const;
+
 export default function ModelList({
   models,
   demo = false,
@@ -21,6 +25,10 @@ export default function ModelList({
   demo?: boolean;
 }) {
   const [tab, setTab] = useState(0);
+  // 筛选条吸顶状态：只有真正贴住顶部时才加底色和投影
+  const [stuck, setStuck] = useState(false);
+  const sentinel = useRef<HTMLDivElement | null>(null);
+
   const visible = models.filter(
     (m) =>
       tab === 0 ||
@@ -33,6 +41,21 @@ export default function ModelList({
     : tab === 0
       ? `共 ${models.length} 款机型`
       : `显示 ${visible.length} / 共 ${models.length} 款`;
+
+  useEffect(() => {
+    const el = sentinel.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries)
+          setStuck(!e.isIntersecting && e.boundingClientRect.top < 0);
+      },
+      { threshold: 0 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -41,31 +64,41 @@ export default function ModelList({
           {countLabel}
         </span>
       </div>
+
+      <div ref={sentinel} aria-hidden className="h-px" />
+
       <div
-        className="mt-6 flex gap-2 overflow-x-auto pb-3"
-        aria-label="品牌筛选"
+        className="sticky-tabs sticky top-0 z-30 -mx-5 mt-6 border-b border-transparent px-5 py-3"
+        data-stuck={stuck}
       >
-        {tabs.map(([label], i) => (
-          <button
-            key={label}
-            type="button"
-            aria-pressed={i === tab}
-            onClick={() => setTab(i)}
-            className={`shrink-0 rounded-full px-4 py-2 text-sm ${i === tab ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-700 hover:bg-slate-200"}`}
-          >
-            {label}
-          </button>
-        ))}
+        <div className="flex gap-2 overflow-x-auto pb-1" aria-label="品牌筛选">
+          {tabs.map(([label], i) => (
+            <button
+              key={label}
+              type="button"
+              aria-pressed={i === tab}
+              onClick={() => setTab(i)}
+              className={`shrink-0 rounded-full px-4 py-2 text-sm transition-colors duration-200 ${i === tab ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-700 hover:bg-slate-200"}`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
+
       {visible.length === 0 ? (
         <p className="py-10 text-slate-500">该品牌机型收集中</p>
       ) : (
         <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((m) => (
-            <li key={m.id}>
+          {visible.map((m, i) => (
+            <Reveal
+              key={`${tab}-${m.id}`}
+              delay={Math.min(i, 8) * 45}
+              className="h-full"
+            >
               <Link
                 href={`/prices/${encodeURIComponent(m.id)}`}
-                className="block rounded-xl border border-slate-200 bg-white p-5 transition hover:border-blue-400"
+                className="group block h-full rounded-xl border border-slate-200 bg-white p-5 transition duration-200 hover:-translate-y-0.5 hover:border-blue-400 hover:shadow-[0_16px_32px_-24px_rgba(15,23,42,0.45)]"
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-xs font-medium text-slate-500">
@@ -80,9 +113,14 @@ export default function ModelList({
                 <h3 className="mt-4 text-lg font-semibold text-slate-900">
                   {m.name} {m.variant}
                 </h3>
-                <p className="mt-3 text-sm text-blue-700">查看行情 →</p>
+                <p className="mt-3 text-sm text-blue-700">
+                  查看行情
+                  <span className="ml-1 inline-block transition-transform duration-200 group-hover:translate-x-1">
+                    →
+                  </span>
+                </p>
               </Link>
-            </li>
+            </Reveal>
           ))}
         </ul>
       )}

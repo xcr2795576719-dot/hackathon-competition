@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import InspectCard from "@/components/verify/InspectCard";
+import Reveal from "@/components/motion/Reveal";
 import GridOverlay from "@/components/verify/GridOverlay";
 import type { VerifyResult } from "@/components/verify/types";
 
@@ -137,13 +138,15 @@ export default function VerifyPage() {
   const busy = status === "uploading" || status === "analyzing";
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-8">
-      <header className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">拍照验机</h1>
-        <p className="mt-1 text-sm text-slate-500">
-          拍一张实物照片，AI 帮你识别机型、评估成色、标出瑕疵。
-        </p>
-      </header>
+    <main className="mx-auto max-w-3xl px-4 pb-28 pt-8">
+      <Reveal className="mb-6">
+        <header>
+          <h1 className="text-2xl font-bold text-slate-900">拍照验机</h1>
+          <p className="mt-1 text-sm text-slate-500">
+            拍一张实物照片，AI 帮你识别机型、评估成色、标出瑕疵。
+          </p>
+        </header>
+      </Reveal>
 
       {/* 上传 / 拍照 */}
       <div className="flex flex-wrap gap-3">
@@ -217,7 +220,9 @@ export default function VerifyPage() {
       {/* 验机卡 */}
       {status === "done" && result && (
         <div className="mt-6">
-          <InspectCard result={result} isMock={isMock} />
+          <Reveal key={result.model_id ?? result.model_guess ?? "result"}>
+            <InspectCard result={result} isMock={isMock} />
+          </Reveal>
           <div className="no-print mt-4 flex justify-end">
             <button
               type="button"

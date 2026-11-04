@@ -24,6 +24,24 @@ export interface VerifyResult {
   notes: string;
   /** 后端后处理回填的定稿机型 id（如 iphone-13-128g），有则优先用于估价 */
   model_id?: string;
+  /** 后端回填的机型全名（如 iPhone 13 128G），匹配不上为 null */
+  model_name?: string | null;
+  /** Top3 候选机型（v2.2），按置信度降序，首个与 model_guess 一致 */
+  candidates?: VerifyCandidate[];
+}
+
+export interface VerifyCandidate {
+  /** AI 给出的型号名 */
+  name: string;
+  /** 该候选的置信度 0-100 */
+  confidence: number;
+  /** 命中机型目录时的 id，未命中为 null */
+  model_id: string | null;
+  /** 命中时的目录口径全名 */
+  model_name?: string | null;
+  brand?: string | null;
+  /** 参考图路径 /models/<model_id>.jpg，缺图时前端降级为品牌色占位 */
+  reference_image: string | null;
 }
 
 /** 九宫格 9 格顺序（与 CSS grid 排列一致：上左→上中→上右→中左...） */

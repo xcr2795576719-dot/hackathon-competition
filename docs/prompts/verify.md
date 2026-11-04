@@ -1,6 +1,6 @@
 # 识机提示词 · 终版
 
-- **当前版本**：v2.1
+- **当前版本**：v2.2（新增 candidates 候选列表）
 - **维护**：队员 E（泳道3 AI 工程）
 - **调用位置**：`lib/ai.ts` 的 `aiVision(imageB64, prompt)`，模型 `glm-4v-flash`，失败切 `qwen3-vl-plus`
 - **落库位置**：`app/api/verify` 解析后直接返回前端
@@ -16,6 +16,11 @@
   "category": "手机|耳机|相机|笔记本|平板|手表|其他",
   "model_guess": "最可能的型号名，带上容量/版本，无法判断写未知",
   "confidence": 0到100的整数,
+  "candidates": [
+    {"name": "最可能的型号名，带容量/版本", "confidence": 0到100的整数},
+    {"name": "第二可能的型号名", "confidence": 比第一个低的整数},
+    {"name": "第三可能的型号名", "confidence": 更低的整数}
+  ],
   "visible_defects": [
     {
       "area": "上左|上中|上右|中左|正中|中右|下左|下中|下右|屏幕|边框|背面|镜头|接口",
@@ -35,6 +40,9 @@
 4. area 只能是上面列出的值。整体问题用 屏幕/边框/背面/镜头/接口，局部问题用九宫格方位。
 5. 照片不是数码产品时，只输出 {"error":"not_product"}。
 6. 照片模糊、反光、只拍到局部时，confidence 给低分，并在 notes 里说明原因。
+7. candidates 必须正好 3 条（不是 1 条、不是 2 条），按置信度从高到低排列；第一个必须和 model_guess 完全一致、confidence 与顶层 confidence 相同；三个 confidence 相加不超过 100。
+8. candidates 的 name 用「品牌 + 型号 + 容量/版本」写法，例如 "iPhone 13 128G"、"小米 14 12+256G"；外观相近的型号（如 iPhone 13 / iPhone 14、Mate 60 / Mate 60 Pro）要一并列出，用户会自己点选确认。
+9. 完全认不出型号时，candidates 给 3 个"可能的品类代表机型"，仍按置信度降序，不要编造容量。
 ```
 
 ## 二、输出字段说明
@@ -44,9 +52,16 @@
 | `category` | string | 验机卡顶部的品类标签 |
 | `model_guess` | string | 与 `data/models.json` 模糊匹配，匹配不上就原样显示 |
 | `confidence` | int 0-100 | 置信度进度条；`<60` 前端提示「建议补拍正面/背面」 |
+| `candidates[]` | array | 候选机型卡片（v2.2）：服务端匹配 `model_id` 并补 `reference_image`，用户可点选纠正机型 |
 | `visible_defects[]` | array | 瑕疵列表徽章 + 九宫格高亮 |
 | `condition_score` | int 0-100 | 成色分环形图；同时按分数段映射五档（见下） |
 | `notes` | string | 卡片底部灰字 |
+
+**candidates 的服务端后处理**（`app/api/verify/route.ts` 的 `normalizeVision`）：
+
+- 每个 `name` 复用 `model_guess → model_id` 的匹配逻辑，命中机型目录时补 `model_id` / `model_name` / `reference_image: /models/<model_id>.jpg`，未命中为 `null`；
+- `model_guess` 若不在候选里，会以顶层 `confidence` 补进候选并重新按置信度降序；
+- 最多返回 3 条，前端拿到 2 条以上才展示候选区。
 
 **分数段 → 五档成色映射**（与 `data/used_samples.json` 的 `grade` 对齐）：
 
@@ -60,7 +75,13 @@
 
 ## 三、版本记录
 
-### v2.1（当前）— 相对 v2 改了 5 处
+### v2.2（当前）— 相对 v2.1 改了 1 处
+
+| # | 改动 | 原因 |
+|---|---|---|
+| 1 | 新增 `candidates` 字段（固定 3 个、置信度降序、首个与 model_guess 一致） | 单次识机准确率有天花板：iPhone 13/14 正面几乎一样。给 Top3 候选让用户自己点选纠正，比死磕单一猜测可靠 |
+
+### v2.1 — 相对 v2 改了 5 处
 
 | # | 改动 | 原因 |
 |---|---|---|

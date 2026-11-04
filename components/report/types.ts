@@ -45,7 +45,23 @@ export interface NormalizedPricePosition {
   current?: number;
   low?: number;
   high?: number;
+  median?: number;
   label?: string;
+}
+
+/**
+ * 泳道3 有时只给一句人话（"当前价2438元…位于第47百分位"），
+ * 这里把数字抠出来，让报告页仍能画出刻度条，而不是退化成一行文字。
+ */
+function parsePositionText(text: string) {
+  const pct = /第\s*(\d{1,3})\s*百分位/.exec(text);
+  const cur = /当前价\s*[¥￥]?\s*(\d+(?:\.\d+)?)/.exec(text);
+  const med = /中位价?\s*[¥￥]?\s*(\d+(?:\.\d+)?)/.exec(text);
+  return {
+    percentile: pct ? Math.min(100, Math.max(0, Number(pct[1]))) : null,
+    current: cur ? Number(cur[1]) : undefined,
+    median: med ? Number(med[1]) : undefined,
+  };
 }
 
 export function normalizePricePosition(
@@ -53,7 +69,7 @@ export function normalizePricePosition(
 ): NormalizedPricePosition {
   if (p == null) return { percentile: null };
   if (typeof p === "number") return { percentile: p };
-  if (typeof p === "string") return { percentile: null, label: p };
+  if (typeof p === "string") return { ...parsePositionText(p), label: p };
   return {
     percentile:
       typeof p.percentile === "number" ? p.percentile : null,

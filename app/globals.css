@@ -10,7 +10,138 @@ body {
   @apply bg-slate-50 text-slate-900 antialiased;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* ------------------------------------------------------------------
+   滚动层 / scroll layer
+   原则（按技能 design-calibration 的 motion 6 档）：
+   只做"序列揭示 + 克制滚动响应"，每个动效都要交代层级或因果，
+   不做纯装饰位移；并全程尊重 prefers-reduced-motion。
+------------------------------------------------------------------ */
+
+/* 入场揭示：默认可见，只有 JS 就绪时才先隐藏，脚本挂了也不会白屏 */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.62s cubic-bezier(0.22, 0.61, 0.36, 1) var(--reveal-delay, 0ms),
+    transform 0.62s cubic-bezier(0.22, 0.61, 0.36, 1) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* 顶部进度条 */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  z-index: 60;
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, #1d4ed8 0%, #0ea5e9 60%, #22d3ee 100%);
+  transition: opacity 0.25s ease;
+}
+
+/* 首屏标题：滚动驱动的视差（零 JS，浏览器不支持就完全静止） */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-parallax {
+      animation: hero-drift linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 420px;
+    }
+  }
+}
+
+@keyframes hero-drift {
+  to {
+    transform: translateY(-28px);
+    opacity: 0.55;
+  }
+}
+
+/* 价格刻度条的填充：进入视口后从 0 长到目标宽度 */
+.scale-fill {
+  transform-origin: 0 50%;
+  animation: scale-grow 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes scale-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* 百分位指针：从 0 滑到目标位置，让"在历史什么位置"这件事被看见 */
+.marker-slide {
+  animation: marker-slide 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes marker-slide {
+  from {
+    left: 0%;
+  }
+  to {
+    left: var(--p, 50%);
+  }
+}
+
+/* 品牌筛选条吸顶后的状态：给出"已固定"的视觉反馈 */
+.sticky-tabs {
+  transition:
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.sticky-tabs[data-stuck="true"] {
+  border-bottom-color: rgb(226 232 240);
+  background-color: rgb(248 250 252 / 0.92);
+  box-shadow: 0 8px 24px -18px rgb(15 23 42 / 0.45);
+  backdrop-filter: blur(8px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .scale-fill,
+  .marker-slide {
+    animation: none;
+  }
+  .hero-parallax {
+    animation: none;
+  }
+}
+
 @media print {
-  .no-print { display: none !important; }
-  body { background: #fff; }
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+  .js [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .scroll-progress {
+    display: none !important;
+  }
 }

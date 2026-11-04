@@ -2,11 +2,12 @@
 // 入参：{ image: "data:image/jpeg;base64,..." } 或纯 base64
 // 流程：aiVision(glm-4v-flash) → parseJsonLoose；解析失败用 qwen3-vl-plus 备选再试一次；
 //       仍失败 502 { error: "AI 通道繁忙" }；缺 image 400。
-// 返回结构（E 版 schema）：{ category, model_guess, confidence(0-100), visible_defects[], condition_score, notes }
+// 返回结构（E 版 schema）：{ category, model_guess, confidence(0-100), candidates[], visible_defects[], condition_score, notes }
 // 后处理：model_guess → models.json 匹配出 model_id / model_name 一起返回（识别失败为 null）。
+//         candidates 里的每个 name 同样匹配，命中时补 model_id / model_name / reference_image（v2.2）。
 //         前端 B 的 InspectCard 直接读 model_id 跳估价，不再走 guessModelId 兜底。
 // 提示词：优先读 docs/prompts/verify.md，文件缺失时回落内置 FALLBACK_PROMPT 并 console.warn。
-//         FALLBACK_PROMPT 是副本，真源永远是 docs/prompts/verify.md（E 维护，v2.1）。
+//         FALLBACK_PROMPT 是副本，真源永远是 docs/prompts/verify.md（E 维护，v2.2）。
 import fs from "node:fs";
 import path from "node:path";
 import { aiVision, parseJsonLoose } from "@/lib/ai";
@@ -24,6 +25,11 @@ const FALLBACK_PROMPT = `你是数码产品验机专家。分析这张产品照�
   "category": "手机|耳机|相机|笔记本|平板|手表|其他",
   "model_guess": "最可能的型号名，带上容量/版本，无法判断写未知",
   "confidence": 0到100的整数,
+  "candidates": [
+    {"name": "最可能的型号名，带容量/版本", "confidence": 0到100的整数},
+    {"name": "第二可能的型号名", "confidence": 比第一个低的整数},
+    {"name": "第三可能的型号名", "confidence": 更低的整数}
+  ],
   "visible_defects": [
     {
       "area": "上左|上中|上右|中左|正中|中右|下左|下中|下右|屏幕|边框|背面|镜头|接口|未知",
@@ -42,7 +48,10 @@ const FALLBACK_PROMPT = `你是数码产品验机专家。分析这张产品照�
 3. condition_score 按外观成色打分：95-100 无可见使用痕迹；85-94 轻微使用痕；70-84 明显划痕或小磕碰；50-69 多处划痕磕碰；0-49 碎裂、变形或明显维修痕迹。
 4. area 只能是上面列出的值。整体问题用 屏幕/边框/背面/镜头/接口，局部问题用九宫格方位。
 5. 照片不是数码产品时，只输出 {"error":"not_product"}。
-6. 照片模糊、反光、只拍到局部时，confidence 给低分，并在 notes 里说明原因。`;
+6. 照片模糊、反光、只拍到局部时，confidence 给低分，并在 notes 里说明原因。
+7. candidates 必须正好 3 条（不是 1 条、不是 2 条），按置信度从高到低排列；第一个必须和 model_guess 完全一致、confidence 与顶层 confidence 相同；三个 confidence 相加不超过 100。
+8. candidates 的 name 用「品牌 + 型号 + 容量/版本」写法，例如 "iPhone 13 128G"、"小米 14 12+256G"；外观相近的型号（如 iPhone 13 / iPhone 14、Mate 60 / Mate 60 Pro）要一并列出，用户会自己点选确认。
+9. 完全认不出型号时，candidates 给 3 个"可能的品类代表机型"，仍按置信度降序，不要编造容量。`;
 
 function loadPrompt(): string {
   const promptPath = path.join(process.cwd(), "docs", "prompts", "verify.md");
@@ -101,6 +110,96 @@ function clampInt(v: unknown, lo: number, hi: number, dflt: number): number {
 
 const SEVERITIES = ["轻微", "中等", "严重"];
 
+/** 候选里的机型参考图：约定 public/models/<model_id>.jpg，缺图时前端降级成品牌色占位 */
+function referenceImageOf(modelId: string): string {
+  return `/models/${modelId}.jpg`;
+}
+
+type Candidate = {
+  name: string;
+  confidence: number;
+  model_id: string | null;
+  model_name: string | null;
+  brand: string | null;
+  reference_image: string | null;
+};
+
+/**
+ * v2.2：候选机型列表。
+ * - 每条 name 复用 matchModel 对到机型目录，命中才给 model_id / reference_image；
+ * - 顶层 model_guess 若不在候选里，用顶层 confidence 补到第一位；
+ * - 去重后按置信度降序，最多 3 条。
+ */
+function normalizeCandidates(
+  raw: Record<string, unknown>,
+  models: Model[],
+  guess: string,
+  guessConfidence: number,
+  matched: Model | null
+): Candidate[] {
+  const list = Array.isArray(raw.candidates) ? (raw.candidates as unknown[]) : [];
+  const out: Candidate[] = [];
+  const seen = new Set<string>();
+
+  const push = (nameRaw: unknown, confRaw: unknown) => {
+    const name = String(nameRaw ?? "").trim().slice(0, 40);
+    if (!name || name === "未知") return;
+    const key = norm(name);
+    if (seen.has(key)) return;
+    seen.add(key);
+    const m = matchModel(name, models);
+    out.push({
+      name,
+      confidence: clampInt(confRaw, 0, 100, 0),
+      model_id: m ? m.id : null,
+      model_name: m ? `${m.name} ${m.variant}`.trim() : null,
+      brand: m ? m.brand : null,
+      reference_image: m ? referenceImageOf(m.id) : null,
+    });
+  };
+
+  for (const c of list.slice(0, 6)) {
+    const o = (c || {}) as Record<string, unknown>;
+    push(o.name, o.confidence);
+  }
+
+  // 主猜测必须出现在候选首位：认出来的机型名以目录口径为准，未认出就用原文
+  const guessName = matched ? `${matched.name} ${matched.variant}`.trim() : guess;
+  const guessKey = norm(guessName);
+  if (guessName && guessKey && guessName !== "未知") {
+    const main: Candidate = {
+      name: guessName,
+      confidence: guessConfidence,
+      model_id: matched ? matched.id : null,
+      model_name: matched ? `${matched.name} ${matched.variant}`.trim() : null,
+      brand: matched ? matched.brand : null,
+      reference_image: matched ? referenceImageOf(matched.id) : null,
+    };
+    // 同一台机可能被模型写成「iPhone 13」和「iPhone 13 128G」，按 model_id / 归一化名称判重
+    const dupIndex = out.findIndex(
+      (c) => (matched && c.model_id === matched.id) || norm(c.name) === guessKey
+    );
+    if (dupIndex >= 0) {
+      out[dupIndex] = { ...out[dupIndex], ...main };
+      const [dup] = out.splice(dupIndex, 1);
+      out.unshift(dup);
+    } else {
+      out.unshift(main);
+    }
+  }
+
+  const sorted = out.sort((a, b) => b.confidence - a.confidence);
+  // 主猜测永远排第一：模型给的候选置信度之和偶尔会越界，展示顺序不能跟着乱
+  const mainIndex = sorted.findIndex(
+    (c) => (matched && c.model_id === matched.id) || norm(c.name) === guessKey
+  );
+  if (mainIndex > 0) {
+    const [main] = sorted.splice(mainIndex, 1);
+    sorted.unshift(main);
+  }
+  return sorted.slice(0, 3);
+}
+
 /** 归一成固定结构，字段缺失也补齐，前端不用防御 */
 function normalizeVision(raw: Record<string, unknown>, models: Model[]) {
   const defectsRaw = Array.isArray(raw.visible_defects) ? (raw.visible_defects as Record<string, unknown>[]) : [];
@@ -116,10 +215,13 @@ function normalizeVision(raw: Record<string, unknown>, models: Model[]) {
   });
 
   const matched = matchModel(raw.model_guess, models);
+  const modelGuess = String(raw.model_guess ?? "未知").slice(0, 40);
+  const confidence = clampInt(raw.confidence, 0, 100, 60);
   return {
     category: String(raw.category ?? "手机").slice(0, 12),
-    model_guess: String(raw.model_guess ?? "未知").slice(0, 40),
-    confidence: clampInt(raw.confidence, 0, 100, 60),
+    model_guess: modelGuess,
+    confidence,
+    candidates: normalizeCandidates(raw, models, modelGuess, confidence, matched),
     visible_defects,
     condition_score: clampInt(raw.condition_score, 0, 100, 75),
     notes: String(raw.notes ?? "").slice(0, 60),

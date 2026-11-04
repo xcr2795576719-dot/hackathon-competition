@@ -5,7 +5,13 @@ import DecisionCard from "@/components/report/DecisionCard";
 import PricePositionBar from "@/components/report/PricePositionBar";
 import ThreeColumns from "@/components/report/ThreeColumns";
 import SourceList from "@/components/report/SourceList";
-import { type ReportData, normalizePricePosition } from "@/components/report/types";
+import {
+  type ReportData,
+  normalizePricePosition,
+  verdictStyle,
+} from "@/components/report/types";
+import Reveal from "@/components/motion/Reveal";
+import StickyVerdict from "@/components/motion/StickyVerdict";
 
 interface ModelMeta {
   id: string;
@@ -73,16 +79,32 @@ export default async function ReportPage({
       report.model_name ?? (meta ? `${meta.name} ${meta.variant}`.trim() : undefined),
   };
 
+  const v = verdictStyle(display.verdict);
+
   return (
-    <main className="mx-auto max-w-4xl space-y-4 px-4 py-8 print:space-y-2">
-      <DecisionCard report={display} />
-      <PricePositionBar position={normalizePricePosition(report.price_position)} />
-      <ThreeColumns
-        pros={report.pros ?? []}
-        cons={report.cons ?? []}
-        pitfalls={report.pitfalls ?? []}
+    <main className="mx-auto max-w-4xl space-y-4 px-4 pb-28 pt-8 print:space-y-2">
+      <StickyVerdict
+        label={v.label}
+        tone={v.badge}
+        model={display.model_name ?? display.model_id}
+        price={display.current_price ?? null}
       />
-      <SourceList sources={report.sources ?? []} />
+      <Reveal id="report-hero">
+        <DecisionCard report={display} />
+      </Reveal>
+      <Reveal delay={90}>
+        <PricePositionBar position={normalizePricePosition(report.price_position)} />
+      </Reveal>
+      <Reveal delay={160}>
+        <ThreeColumns
+          pros={report.pros ?? []}
+          cons={report.cons ?? []}
+          pitfalls={report.pitfalls ?? []}
+        />
+      </Reveal>
+      <Reveal delay={230}>
+        <SourceList sources={report.sources ?? []} />
+      </Reveal>
 
       <footer className="no-print pt-4 text-center text-xs text-slate-400">
         机鉴 · 数据仅供决策参考 · 生成于{" "}
